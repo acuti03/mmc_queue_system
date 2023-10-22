@@ -4,7 +4,7 @@
 <head>
 	<!-- Required meta tags -->
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<!-- Bootstrap CSS -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -28,74 +28,102 @@
 		input[type=number] {
 			-moz-appearance: textfield;
 		}
-		html, body{
-			width: 100%;
-			height: 100%;
+		*{
 			font-family: 'JetBrains Mono', monospace;
 		}
-		main{
+		html, body{
 			height: 100%;
 			display: flex;
 			justify-content: center;
 			align-items: center;
 		}
-		.card{
-			padding: 15px;
-			border-radius: 8px;
-		}
-		.card h2{
-			letter-spacing: 5px;
+		main{
 			text-align: center;
-			margin-bottom: -5px;
-		}
-		.card span{
-			width: 50px;
-			justify-content: center;
-		}
-		.card input, .card button, .card span, .card output{
+			padding: 10px;
 			border-radius: 8px;
+		}
+		main .btn{
+			margin-bottom: 10px;
+			margin-top: 20px;
+			border-radius: 8px;
+		}
+		span, input, output{
+			border-radius: 8px;
+		}
+		main h2{
+			margin-top: 10px;
+		}
+		.row{
+			margin: auto;
+		}
+		.row span{
 			height: 38px;
+			width: 30px;
+			justify-content: center;
 		}
 	</style>
 </head>
 
 <body>
-	<main>
-		<div class="card shadow">
-			<h2>M/M/C</ h2>
-			<hr>
-			<div class="input-group mb-3">
+	<main class="shadow">
+		<h2>M/M/C</h2>
+		<hr>
+		<div class="row">
+			<div class="col input-group mb-2">
 				<span class="input-group-text" id="basic-addon1">$$\lambda$$</span>
 				<input type="number" class="form-control" placeholder="Insert your lambda" aria-label="Lambda" aria-describedby="basic-addon1">
 			</div>
-			<div class="input-group mb-3">
+			
+			<div class="col input-group mb-2">
 				<span class="input-group-text" id="basic-addon1">$$\mu$$</span>
-				<input type="number" class="form-control" placeholder="Insert your mu" aria-label="Mu" aria-describedby="basic-addon1">
+				<input type="number" class="form-control" placeholder="Insert your Mu" aria-label="Lambda" aria-describedby="basic-addon1">
 			</div>
-			<div class="input-group mb-3">
-				<span class="input-group-text">$$\rho$$</span>
-				<output class="form-control"></output>
+		</div>
+		<div class="row">
+			<div class="col input-group mb-2">
+				<span class="input-group-text" id="basic-addon1">$$c$$</span>
+				<input type="number" class="form-control" placeholder="Insert your c" aria-label="Lambda" aria-describedby="basic-addon1">
 			</div>
-			<div class="input-group mb-3">
-				<span class="input-group-text">$$\mathbb{P}_k$$</span>
-				<output class="form-control"></output>
+			
+			<div class="col input-group mb-2">
+				<span class="input-group-text" id="basic-addon1">$$\rho$$</span>
+				<output class="form-control" aria-label="Lambda" aria-describedby="basic-addon1">
 			</div>
-			<div class="input-group mb-3">
-				<span class="input-group-text">$$L_s$$</span>
-				<output class="form-control"></output>
+		</div>
+		<div class="row">
+			<div class="col input-group mb-2">
+				<span class="input-group-text" id="basic-addon1">$$\mathbb{P}_k$$</span>
+				<output class="form-control" aria-label="Lambda" aria-describedby="basic-addon1"></output>
 			</div>
-			<div class="input-group mb-3">
-				<span class="input-group-text">$$L_q$$</span>
-				<output class="form-control"></output>
+			
+			<div class="col input-group mb-2">
+				<span class="input-group-text" id="basic-addon1">$$\mathbb{P}_0$$</span>
+				<output class="form-control" aria-label="Lambda" aria-describedby="basic-addon1">
 			</div>
-			<div class="input-group mb-3">
-				<span class="input-group-text">$$W_s$$</span>
-				<output class="form-control"></output>
+		</div>
+		<div class="row">
+			<div class="col input-group mb-2">
+				<span class="input-group-text" id="basic-addon1">$$L_s$$</span>
+				<output class="form-control" aria-label="Lambda" aria-describedby="basic-addon1">
 			</div>
-			<div class="input-group mb-3">
-				<span class="input-group-text">$$W_q$$</span>
-				<output class="form-control"></output>
+			
+			<div class="col input-group mb-2">
+				<span class="input-group-text" id="basic-addon1">$$L_q$$</span>
+				<output class="form-control" aria-label="Lambda" aria-describedby="basic-addon1">
 			</div>
+		</div>
+		<div class="row">
+			<div class="col input-group mb-2">
+				<span class="input-group-text" id="basic-addon1">$$W_s$$</span>
+				<output class="form-control" aria-label="Lambda" aria-describedby="basic-addon1">
+			</div>
+			
+			<div class="col input-group mb-2">
+				<span class="input-group-text" id="basic-addon1">$$W_q$$</span>
+				<output class="form-control" aria-label="Lambda" aria-describedby="basic-addon1">
+			</div>
+		</div>
+		<div class="row">
 			<button type="button" class="btn btn-success">Calcola</button>
 		</div>
 	</main>
