@@ -7,4 +7,4 @@ class Mmc(models.Model):
     c = models.IntegerField()
 
     def __str__(self):
-        return "Lambda: " + str(self.myLambda) + " Mu: " + str(self.mu)
+        return "Lambda: " + str(self.myLambda) + " Mu: " + str(self.mu) + " C: " + str(self.c)
