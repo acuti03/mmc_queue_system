@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +10,6 @@
 	<!-- Bootstrap CSS -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-
 	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 	<script>
 		MathJax = {
@@ -23,45 +23,9 @@
 		integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
 		crossorigin="anonymous"></script>
 
+	<link rel="stylesheet" href="{% static 'index.css' %}">
+
 	<title>Progetto</title>
-	<style>
-		input[type=number] {
-			-moz-appearance: textfield;
-		}
-		*{
-			font-family: 'JetBrains Mono', monospace;
-		}
-		html, body{
-			height: 100%;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-		}
-		form{
-			text-align: center;
-			padding: 10px;
-			border-radius: 8px;
-		}
-		form .btn{
-			margin-bottom: 10px;
-			margin-top: 20px;
-			border-radius: 8px;
-		}
-		span, input, output{
-			border-radius: 8px;
-		}
-		form h2{
-			margin-top: 10px;
-		}
-		.row{
-			margin: auto;
-		}
-		.row span{
-			height: 38px;
-			width: 30px;
-			justify-content: center;
-		}
-	</style>
 </head>
 
 <body>
@@ -71,23 +35,23 @@
 		<div class="row">
 			<div class="col input-group mb-2">
 				<span class="input-group-text" id="basic-addon1">$$\lambda$$</span>
-				<input type="text" class="form-control" name="myLambda" placeholder="Insert your lambda">
+				<input type="number" step="0.01" class="form-control" name="myLambda" placeholder="Insert your lambda" required>
 			</div>
 			
 			<div class="col input-group mb-2">
 				<span class="input-group-text" id="basic-addon1">$$\mu$$</span>
-				<input type="text" class="form-control" name="mu" placeholder="Insert your Mu">
+				<input type="number" step="0.01" class="form-control" name="mu" placeholder="Insert your Mu" required>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col input-group mb-2">
 				<span class="input-group-text" id="basic-addon1">$$c$$</span>
-				<input type="number" class="form-control" name="c" placeholder="Insert your c">
+				<input type="number" class="form-control" name="c" placeholder="Insert your c" required>
 			</div>
 			
 			<div class="col input-group mb-2">
 				<span class="input-group-text" id="basic-addon1">$$\rho$$</span>
-				<output class="form-control">
+				<output class="form-control"></output>
 			</div>
 		</div>
 		<div class="row">
@@ -98,35 +62,36 @@
 			
 			<div class="col input-group mb-2">
 				<span class="input-group-text" id="basic-addon1">$$\mathbb{P}_0$$</span>
-				<output class="form-control">
+				<output class="form-control"></output>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col input-group mb-2">
 				<span class="input-group-text" id="basic-addon1">$$L_s$$</span>
-				<output class="form-control">
+				<output class="form-control"></output>
 			</div>
 			
 			<div class="col input-group mb-2">
 				<span class="input-group-text" id="basic-addon1">$$L_q$$</span>
-				<output class="form-control">
+				<output class="form-control"></output>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col input-group mb-2">
 				<span class="input-group-text" id="basic-addon1">$$W_s$$</span>
-				<output class="form-control">
+				<output class="form-control"></output>
 			</div>
 			
 			<div class="col input-group mb-2">
 				<span class="input-group-text" id="basic-addon1">$$W_q$$</span>
-				<output class="form-control">
+				<output class="form-control"></output>
 			</div>
 		</div>
 		<div class="row">
-			<button type="submit" class="btn btn-success">Calcola</button>
+			<button type="submit" name="calcola" class="col btn btn-success">Calcola</button>
+			<button type="button" value="stop" name="stop" class="col btn btn-danger">Stop</button>
 		</div>
-	</form>
+	</form> 
 </body>
 
 </html>
