@@ -3,12 +3,19 @@ from .models import Mmc
 
 # Create your views here.
 def home(request):
-    if request.method == 'POST':
-        myLambda = request.POST['myLambda']
-        mu = request.POST['mu']
-        c = request.POST['c']
+	c = 0;
 
-        newMmc = Mmc(myLambda = myLambda, mu = mu, c = c)
-        newMmc.save()
+	if request.method == 'POST':
+		myLambda = request.POST['myLambda']
+		mu = request.POST['mu']
+		c = request.POST['c']
+	
+		newMmc = Mmc(myLambda = myLambda, mu = mu, c = c)
+		newMmc.save()
 
-    return render(request, 'mmc/index.html')
+	c = int(c);
+	context = { 
+		"data" : [n for n in range(0,c)], 
+	} 
+
+	return render(request, 'mmc/index.html', context)
