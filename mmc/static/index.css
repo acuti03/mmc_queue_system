@@ -1,34 +1,34 @@
 *{
-    font-family: 'JetBrains Mono', monospace;
+	font-family: 'JetBrains Mono', monospace;
 }
 input[type=number] {
-    -moz-appearance: textfield;
+	-moz-appearance: textfield;
 }
 html, body{
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
-form{
-    text-align: center;
-    padding: 10px;
-    border-radius: 8px;
+main{
+	text-align: center;
+	padding: 10px;
+	border-radius: 8px;
 }
-form .btn{
-    margin-bottom: 10px;
-    margin-top: 20px;
-    border-radius: 8px;
-    margin: 10px;
+main .btn{
+	margin-bottom: 10px;
+	margin-top: 20px;
+	border-radius: 8px;
+	margin: 10px;
 }
-form h2{
-    margin-top: 10px;
+main h2{
+	margin-top: 10px;
 }
 .row{
-    margin: auto;
+	margin: auto;
 }
 .row span{
-    height: 38px;
-    width: 30px;
-    justify-content: center;
+	height: 38px;
+	width: 30px;
+	justify-content: center;
 }

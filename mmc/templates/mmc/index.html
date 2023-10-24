@@ -25,55 +25,74 @@
 
 	<link rel="stylesheet" href="{% static 'index.css' %}">
 
+	<script>
+		const printResult = () => {
+			const list = document.querySelectorAll('output');
+
+			list.forEach(element => {
+				element.innerHTML = "{{ c }}";
+			})
+		}
+
+		const clearContent = () => {
+			const list = document.querySelectorAll('output');
+
+			list.forEach(element => {
+				element.innerHTML = '';
+			})
+		}
+	</script>
+
 	<title>Progetto</title>
 </head>
 
 <body>
-	<form class="shadow" method="post" action="">{% csrf_token %}
-		<h2>M/M/C</h2>
-		<hr>
-		<div class="row">
-			<div class="col input-group mb-2">
-				<span class="input-group-text" id="basic-addon1">$$\lambda$$</span>
-				<input type="number" step="0.01" class="form-control" name="myLambda" placeholder="Insert your lambda" required>
+	<main class="shadow">
+		<form id="myform" method="post" action="">{% csrf_token %}
+			<h2>M/M/C</h2>
+			<hr>
+			<div class="row">
+				<div class="col input-group mb-2">
+					<span class="input-group-text" id="basic-addon1">$$\lambda$$</span>
+					<input type="number" step="0.01" class="form-control" name="myLambda" placeholder="Insert your lambda">
+				</div>
+				
+				<div class="col input-group mb-2">
+					<span class="input-group-text" id="basic-addon1">$$\mu$$</span>
+					<input type="number" step="0.01" class="form-control" name="mu" placeholder="Insert your Mu">
+				</div>
 			</div>
-			
-			<div class="col input-group mb-2">
-				<span class="input-group-text" id="basic-addon1">$$\mu$$</span>
-				<input type="number" step="0.01" class="form-control" name="mu" placeholder="Insert your Mu" required>
+			<div class="row">
+				<div class="col input-group mb-2">
+					<span class="input-group-text" id="basic-addon1">$$c$$</span>
+					<input type="number" class="form-control" name="c" placeholder="Insert your c">
+				</div>
+				<div class="col input-group mb-2">
+					<span class="input-group-text" id="basic-addon1">$$\rho$$</span>
+					<output class="form-control" id="result"></output>
+				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col input-group mb-2">
-				<span class="input-group-text" id="basic-addon1">$$c$$</span>
-				<input type="number" class="form-control" name="c" placeholder="Insert your c" required>
-			</div>
-			
-			<div class="col input-group mb-2">
-				<span class="input-group-text" id="basic-addon1">$$\rho$$</span>
-				<output class="form-control"></output>
-			</div>
-		</div>
+		</form>
 		<div class="row">
 			<div class="col input-group mb-2">
 				<span class="input-group-text" id="basic-addon1">$$\mathbb{P}_k$$</span>
-				<output class="form-control"></output>
+				<output class="form-control" id="result"></output>
 			</div>
-			
+				
 			<div class="col input-group mb-2">
 				<span class="input-group-text" id="basic-addon1">$$\mathbb{P}_0$$</span>
-				<output class="form-control"></output>
+				<output class="form-control" id="result"></output>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col input-group mb-2">
 				<span class="input-group-text" id="basic-addon1">$$L_s$$</span>
-				<output class="form-control"></output>
+				<output class="form-control" id="result"></output>
 			</div>
-			
+
 			<div class="col input-group mb-2">
 				<span class="input-group-text" id="basic-addon1">$$L_q$$</span>
-				<output class="form-control"></output>
+				<output class="form-control" id="result"></output>
 			</div>
 		</div>
 		<div class="row">
@@ -88,10 +107,13 @@
 			</div>
 		</div>
 		<div class="row">
-			<button type="submit" name="calcola" class="col btn btn-success">Calcola</button>
-			<button type="button" value="stop" name="stop" class="col btn btn-danger">Stop</button>
+			<button type="submit" form="myform" class="col btn btn-success">Carica</button>
 		</div>
-	</form> 
+		<div class="row">
+			<button type="button" onclick="printResult()" class="col btn btn-primary">Calcola</button>
+			<button type="button" onclick="clearContent()" class="col btn btn-danger">Stop</button>
+		</div>
+	</main>
 </body>
 
 </html>
