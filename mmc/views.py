@@ -21,10 +21,8 @@ def home(request):
 		newMmc = Mmc(myLambda = myLambda, mu = mu, c = c)
 		newMmc.save()
 
-	c = int(c);
 	context = {
 		"c": c,
-		"data" : [n for n in range(0,c)], 
 	}
 
 	return render(request, 'mmc/index.html', context)

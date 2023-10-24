@@ -10,51 +10,16 @@
 	<!-- Bootstrap CSS -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+	<!-- MathJax-->
 	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-	<script>
-		MathJax = {
-			tex: {
-				tags: 'ams'  // should be 'ams', 'none', or 'all'
-			}
-		};
+	<script id="MathJax-script" async
+			src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
 	</script>
-	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
-		crossorigin="anonymous"></script>
 
+	<!-- My CSS and Javascript file -->
 	<link rel="stylesheet" href="{% static 'index.css' %}">
-
-	<script>
-		const stop = (myInterval) => {
-  			clearInterval(myInterval);
-		}
-
-		const printResult = () => {
-			const list = document.querySelectorAll('output');
-
-			const data = `{{ c }}`;
-			let tmp = data;
-
-			const myInterval = setInterval(() => {
-				tmp == 0 ? stop(myInterval) : 1;
-
-				list.forEach(element => {
-					element.innerHTML = tmp;
-				})
-				console.log(tmp);
-				tmp -= 1;
-			}, 1000)
-		}
-
-		const clearContent = () => {
-				const list = document.querySelectorAll('output');
-
-				list.forEach(element => {
-					element.innerHTML = '';
-				})
-		}
-	</script>
+	<script src="{% static 'script.js' %}" defer data-c="{{ c }}"></script>
 
 	<title>Progetto</title>
 </head>
@@ -67,45 +32,57 @@
 			<div class="row">
 				<div class="col input-group mb-2">
 					<span class="input-group-text" id="basic-addon1">$$\lambda$$</span>
-					<input type="number" step="0.01" class="form-control" name="myLambda" placeholder="Insert your lambda">
+					<input type="number" step="0.01" class="form-control" name="myLambda" placeholder="Insert your lambda" required>
 				</div>
 				
 				<div class="col input-group mb-2">
 					<span class="input-group-text" id="basic-addon1">$$\mu$$</span>
-					<input type="number" step="0.01" class="form-control" name="mu" placeholder="Insert your Mu">
+					<input type="number" step="0.01" class="form-control" name="mu" placeholder="Insert your Mu" required>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col input-group mb-2">
 					<span class="input-group-text" id="basic-addon1">$$c$$</span>
-					<input type="number" class="form-control" name="c" placeholder="Insert your c">
-				</div>
-				<div class="col input-group mb-2">
-					<span class="input-group-text" id="basic-addon1">$$\rho$$</span>
-					<output class="form-control" id="result"></output>
+					<input type="number" step="0.01" class="form-control" name="c" placeholder="Insert your c" required>
 				</div>
 			</div>
 		</form>
 		<div class="row">
 			<div class="col input-group mb-2">
+				<span class="input-group-text" id="basic-addon1">$$\mu_k$$</span>
+				<output class="form-control"></output>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col input-group mb-2" id="basic-addon1">
+				<span class="input-group-text" id="basic-addon1">$$\rho$$</span>
+				<output class="form-control"></output>
+			</div>
+			<div class="col input-group mb-2">
+				<span class="input-group-text" id="basic-addon1">$$k$$</span>
+				<output class="form-control" id="k"></output>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col input-group mb-2">
 				<span class="input-group-text" id="basic-addon1">$$\mathbb{P}_k$$</span>
-				<output class="form-control" id="result"></output>
+				<output class="form-control"></output>
 			</div>
 				
 			<div class="col input-group mb-2">
 				<span class="input-group-text" id="basic-addon1">$$\mathbb{P}_0$$</span>
-				<output class="form-control" id="result"></output>
+				<output class="form-control"></output>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col input-group mb-2">
 				<span class="input-group-text" id="basic-addon1">$$L_s$$</span>
-				<output class="form-control" id="result"></output>
+				<output class="form-control"></output>
 			</div>
 
 			<div class="col input-group mb-2">
 				<span class="input-group-text" id="basic-addon1">$$L_q$$</span>
-				<output class="form-control" id="result"></output>
+				<output class="form-control"></output>
 			</div>
 		</div>
 		<div class="row">
@@ -123,8 +100,8 @@
 			<button type="submit" form="myform" class="col btn btn-primary">Carica</button>
 		</div>
 		<div class="row">
-			<button type="button" onclick="printResult()" class="col btn btn-success">Calcola</button>
-			<button type="button" onclick="clearContent()" class="col btn btn-danger">Stop</button>
+			<button type="button" onclick="main.printResult.call(main)" id="print" class="col btn btn-success">Calcola</button>
+			<button type="button" onclick="main.clearContent.call(main)" id="cancel" class="col btn btn-danger">Stop</button>
 		</div>
 	</main>
 </body>
