@@ -26,20 +26,33 @@
 	<link rel="stylesheet" href="{% static 'index.css' %}">
 
 	<script>
+		const stop = (myInterval) => {
+  			clearInterval(myInterval);
+		}
+
 		const printResult = () => {
 			const list = document.querySelectorAll('output');
 
-			list.forEach(element => {
-				element.innerHTML = "{{ c }}";
-			})
+			const data = `{{ c }}`;
+			let tmp = data;
+
+			const myInterval = setInterval(() => {
+				tmp == 0 ? stop(myInterval) : 1;
+
+				list.forEach(element => {
+					element.innerHTML = tmp;
+				})
+				console.log(tmp);
+				tmp -= 1;
+			}, 1000)
 		}
 
 		const clearContent = () => {
-			const list = document.querySelectorAll('output');
+				const list = document.querySelectorAll('output');
 
-			list.forEach(element => {
-				element.innerHTML = '';
-			})
+				list.forEach(element => {
+					element.innerHTML = '';
+				})
 		}
 	</script>
 
@@ -107,10 +120,10 @@
 			</div>
 		</div>
 		<div class="row">
-			<button type="submit" form="myform" class="col btn btn-success">Carica</button>
+			<button type="submit" form="myform" class="col btn btn-primary">Carica</button>
 		</div>
 		<div class="row">
-			<button type="button" onclick="printResult()" class="col btn btn-primary">Calcola</button>
+			<button type="button" onclick="printResult()" class="col btn btn-success">Calcola</button>
 			<button type="button" onclick="clearContent()" class="col btn btn-danger">Stop</button>
 		</div>
 	</main>

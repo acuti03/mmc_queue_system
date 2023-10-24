@@ -25,8 +25,6 @@ def home(request):
 	context = {
 		"c": c,
 		"data" : [n for n in range(0,c)], 
-	} 
-
-	dataJSON = dumps(context)
+	}
 
 	return render(request, 'mmc/index.html', context)
