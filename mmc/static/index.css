@@ -4,11 +4,10 @@
 input[type=number] {
 	-moz-appearance: textfield;
 }
-html, body{
+html, body, main{
 	height: 100%;
 }
 main{
-	height: 100%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
