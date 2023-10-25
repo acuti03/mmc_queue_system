@@ -21,87 +21,92 @@
 	<link rel="stylesheet" href="{% static 'index.css' %}">
 	<script src="{% static 'script.js' %}" defer data-c="{{ c }}"></script>
 
+	<!-- Adding favicon -->
+	<link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}"/>
+
 	<title>Progetto</title>
 </head>
 
 <body>
-	<main class="shadow">
-		<form id="myform" method="post" action="">{% csrf_token %}
-			<h2>M/M/C</h2>
-			<hr>
+	<main>
+		<div class="myConatiner shadow">
+			<form id="myform" method="post" action="">{% csrf_token %}
+				<h2>M/M/C</h2>
+				<hr>
+				<div class="row">
+					<div class="col input-group mb-2">
+						<span class="input-group-text" id="basic-addon1">$$\lambda$$</span>
+						<input type="number" step="0.01" class="form-control" name="myLambda" placeholder="Insert your lambda" required>
+					</div>
+					
+					<div class="col input-group mb-2">
+						<span class="input-group-text" id="basic-addon1">$$\mu$$</span>
+						<input type="number" step="0.01" class="form-control" name="mu" placeholder="Insert your Mu" required>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col input-group mb-2">
+						<span class="input-group-text" id="basic-addon1">$$c$$</span>
+						<input type="number" step="0.01" class="form-control" name="c" placeholder="Insert your c" required>
+					</div>
+				</div>
+			</form>
 			<div class="row">
 				<div class="col input-group mb-2">
-					<span class="input-group-text" id="basic-addon1">$$\lambda$$</span>
-					<input type="number" step="0.01" class="form-control" name="myLambda" placeholder="Insert your lambda" required>
+					<span class="input-group-text" id="basic-addon1">$$\mu_k$$</span>
+					<output class="form-control"></output>
 				</div>
-				
+			</div>
+			<div class="row">
+				<div class="col input-group mb-2" id="basic-addon1">
+					<span class="input-group-text" id="basic-addon1">$$\rho$$</span>
+					<output class="form-control"></output>
+				</div>
 				<div class="col input-group mb-2">
-					<span class="input-group-text" id="basic-addon1">$$\mu$$</span>
-					<input type="number" step="0.01" class="form-control" name="mu" placeholder="Insert your Mu" required>
+					<span class="input-group-text" id="basic-addon1">$$k$$</span>
+					<output class="form-control" id="k"></output>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col input-group mb-2">
-					<span class="input-group-text" id="basic-addon1">$$c$$</span>
-					<input type="number" step="0.01" class="form-control" name="c" placeholder="Insert your c" required>
+					<span class="input-group-text" id="basic-addon1">$$\mathbb{P}_k$$</span>
+					<output class="form-control"></output>
+				</div>
+					
+				<div class="col input-group mb-2">
+					<span class="input-group-text" id="basic-addon1">$$\mathbb{P}_0$$</span>
+					<output class="form-control"></output>
 				</div>
 			</div>
-		</form>
-		<div class="row">
-			<div class="col input-group mb-2">
-				<span class="input-group-text" id="basic-addon1">$$\mu_k$$</span>
-				<output class="form-control"></output>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col input-group mb-2" id="basic-addon1">
-				<span class="input-group-text" id="basic-addon1">$$\rho$$</span>
-				<output class="form-control"></output>
-			</div>
-			<div class="col input-group mb-2">
-				<span class="input-group-text" id="basic-addon1">$$k$$</span>
-				<output class="form-control" id="k"></output>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col input-group mb-2">
-				<span class="input-group-text" id="basic-addon1">$$\mathbb{P}_k$$</span>
-				<output class="form-control"></output>
-			</div>
-				
-			<div class="col input-group mb-2">
-				<span class="input-group-text" id="basic-addon1">$$\mathbb{P}_0$$</span>
-				<output class="form-control"></output>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col input-group mb-2">
-				<span class="input-group-text" id="basic-addon1">$$L_s$$</span>
-				<output class="form-control"></output>
-			</div>
+			<div class="row">
+				<div class="col input-group mb-2">
+					<span class="input-group-text" id="basic-addon1">$$L_s$$</span>
+					<output class="form-control"></output>
+				</div>
 
-			<div class="col input-group mb-2">
-				<span class="input-group-text" id="basic-addon1">$$L_q$$</span>
-				<output class="form-control"></output>
+				<div class="col input-group mb-2">
+					<span class="input-group-text" id="basic-addon1">$$L_q$$</span>
+					<output class="form-control"></output>
+				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col input-group mb-2">
-				<span class="input-group-text" id="basic-addon1">$$W_s$$</span>
-				<output class="form-control"></output>
+			<div class="row">
+				<div class="col input-group mb-2">
+					<span class="input-group-text" id="basic-addon1">$$W_s$$</span>
+					<output class="form-control"></output>
+				</div>
+				
+				<div class="col input-group mb-2">
+					<span class="input-group-text" id="basic-addon1">$$W_q$$</span>
+					<output class="form-control"></output>
+				</div>
 			</div>
-			
-			<div class="col input-group mb-2">
-				<span class="input-group-text" id="basic-addon1">$$W_q$$</span>
-				<output class="form-control"></output>
+			<div class="row">
+				<button type="submit" form="myform" class="col btn btn-primary">Carica</button>
 			</div>
-		</div>
-		<div class="row">
-			<button type="submit" form="myform" class="col btn btn-primary">Carica</button>
-		</div>
-		<div class="row">
-			<button type="button" onclick="main.printResult.call(main)" id="print" class="col btn btn-success">Calcola</button>
-			<button type="button" onclick="main.clearContent.call(main)" id="cancel" class="col btn btn-danger">Stop</button>
+			<div class="row">
+				<button type="button" onclick="main.printResult.call(main)" id="print" class="col btn btn-success">Calcola</button>
+				<button type="button" onclick="main.clearContent.call(main)" id="cancel" class="col btn btn-danger">Stop</button>
+			</div>
 		</div>
 	</main>
 </body>
