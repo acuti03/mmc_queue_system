@@ -4,9 +4,9 @@ from json import dumps
 
 # Create your views here.
 def home(request):
-	c = 0;
-	myLambda = 0;
-	mu = 0;
+	c = 0
+	myLambda = 0
+	mu = 0
 
 	if request.method == 'POST':
 		myLambda = request.POST['myLambda']
