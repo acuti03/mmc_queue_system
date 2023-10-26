@@ -20,7 +20,7 @@
 	<!-- My CSS and Javascript file -->
 	<link rel="stylesheet" href="{% static 'index.css' %}">
 	<script src="{% static 'script.js' %}" defer data-k="{{ k }}" data-mu_k="{{ mu_k }}" 
-		data-rho="{{ rho }}"></script>
+		data-rho="{{ rho }}" data-p_0="{{ p_0 }}" data-p_k="{{ p_k }}"></script>
 
 	<!-- Adding favicon -->
 	<link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}"/>
@@ -71,12 +71,12 @@
 			<div class="row">
 				<div class="col input-group mb-2">
 					<span class="input-group-text" id="basic-addon1">$$\mathbb{P}_k$$</span>
-					<output class="form-control"></output>
+					<output class="form-control" id="p_k"></output>
 				</div>
 					
 				<div class="col input-group mb-2">
 					<span class="input-group-text" id="basic-addon1">$$\mathbb{P}_0$$</span>
-					<output class="form-control"></output>
+					<output class="form-control" id="p_0"></output>
 				</div>
 			</div>
 			<div class="row">
@@ -110,6 +110,7 @@
 			</div>
 		</div>
 	</main>
+	<h1>{{ P_0 }}</h1>
 </body>
 
 </html>
