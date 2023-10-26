@@ -19,7 +19,8 @@
 
 	<!-- My CSS and Javascript file -->
 	<link rel="stylesheet" href="{% static 'index.css' %}">
-	<script src="{% static 'script.js' %}" defer data-k="{{ k }}" data-mu_k="{{ mu_k }}"></script>
+	<script src="{% static 'script.js' %}" defer data-k="{{ k }}" data-mu_k="{{ mu_k }}" 
+		data-rho="{{ rho }}"></script>
 
 	<!-- Adding favicon -->
 	<link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}"/>
@@ -60,7 +61,7 @@
 			<div class="row">
 				<div class="col input-group mb-2" id="basic-addon1">
 					<span class="input-group-text" id="basic-addon1">$$\rho$$</span>
-					<output class="form-control"></output>
+					<output class="form-control" id="rho"></output>
 				</div>
 				<div class="col input-group mb-2">
 					<span class="input-group-text" id="basic-addon1">$$k$$</span>
