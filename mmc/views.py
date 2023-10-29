@@ -29,9 +29,6 @@ def home(request):
 		mu = float(request.POST['mu'])
 		c = int(request.POST['c'])
 
-		newMmc = Mmc(myLambda = myLambda, mu = mu, c = c)
-		newMmc.save()
-
 		if c is not 0 and mu is not 0:
 			x = lambda a : a if a > 0 else -a
 
@@ -65,9 +62,13 @@ def home(request):
 				w_q = float("{:.3f}".format(cErlang(rho * c, c, (p_0 ** -1)) / ((c * mu) * (1 - rho))))
 				w_s = float("{:.3f}".format((cErlang(rho * c, c, (p_0 ** -1)) + (c * (1 - rho))) / ((c * mu)*(1 - rho))))
 
-			print(p_queue)
+			newMmc = Mmc(myLambda = myLambda, mu = mu, c = c)
+			newMmc.save()
+
 
 	context = {
+		"myLambda": myLambda,
+		"mu": mu,
 		"c": c,
 		"mu_k": dumps(mu_k),
 		"k": k,
@@ -83,3 +84,6 @@ def home(request):
 	}
 
 	return render(request, 'mmc/index.html', context)
+
+def grafici(request):
+	return render(request, 'mmc/grafici.html')
