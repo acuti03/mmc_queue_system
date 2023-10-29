@@ -13,17 +13,17 @@
 
 	<!-- MathJax-->
 	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-	<script id="MathJax-script" async
-			src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-	</script>
+	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
 	<!-- My CSS and Javascript file -->
 	<link rel="stylesheet" href="{% static 'index.css' %}">
-	<script src="{% static 'script.js' %}" defer data-k="{{ k }}" data-mu_k="{{ mu_k }}" 
+	<script src="{% static 'script.js' %}" defer data-k="{{ k }}" data-mu_k="{{ mu_k }}"
+		data-c="{{ c }}" data-myLambda="{{ myLambda }}" data-mu="{{ mu }}"
 		data-rho="{{ rho }}" data-p_0="{{ p_0 }}" data-p_k="{{ p_k }}" data-p_queue="{{ p_queue }}"
 		data-l_q="{{ l_q }}" data-l_s="{{ l_s }}" data-w_q="{{ w_q }}"
 		data-w_s="{{ w_s }}"></script>
 
+	<!-- Add font-awasome -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
 		integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
 		crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -37,17 +37,23 @@
 <body>
 	<nav>
 		<a href="#">Home</a></li>
-		<a href="#">Grafici</a></li>
+		<a href="grafici">Grafici</a></li>
 		<a href="#">Relazione</a>
 		<span class="border">
-			<a href="#"><i class="fa-brands fa-github fa-xl" style="color: #000000;"></i></a>
+			<a href="https://github.com/acuti03" target="_blank"><i class="fa-brands fa-github fa-xl" style="color: #000000;"></i></a>
 		</span>
 	</nav>
 	<hr>
 	<main>
 		<div class="myConatiner shadow">
-			<form id="myform" method="POST" action="">{% csrf_token %}
-				<h2>M/M/C</h2>
+			<form id="myform" onsubmit="submitControl()" method="POST" action="">{% csrf_token %}
+				<div class="head">
+					<p></p>
+					<h2>M/M/C</h2>
+					<span>
+						<button type="button" class="btn"><i class="fa-solid fa-arrow-right fa-lg"></i></button>
+					</span>
+				</div>
 				<hr>
 				<div class="row">
 					<div class="col input-group mb-2">

@@ -46,8 +46,16 @@ main .btn{
 	border-radius: 8px;
 	margin: 10px;
 }
-main h2{
-	margin-top: 10px;
+main .head{
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+}
+main .head h2{
+	padding-left: 70px;
+}
+main .head button{
+	padding-bottom: 10px;
 }
 .row{
 	margin: auto;
