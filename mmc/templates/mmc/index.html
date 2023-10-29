@@ -18,7 +18,7 @@
 	<!-- My CSS and Javascript file -->
 	<link rel="stylesheet" href="{% static 'index.css' %}">
 	<script src="{% static 'script.js' %}" defer data-k="{{ k }}" data-mu_k="{{ mu_k }}"
-		data-c="{{ c }}" data-myLambda="{{ myLambda }}" data-mu="{{ mu }}"
+		data-c="{{ c }}" data-myLambda="{{ myLambda }}" data-mu="{{ mu }}" data-v="{{ v }}"
 		data-rho="{{ rho }}" data-p_0="{{ p_0 }}" data-p_k="{{ p_k }}" data-p_queue="{{ p_queue }}"
 		data-l_q="{{ l_q }}" data-l_s="{{ l_s }}" data-w_q="{{ w_q }}"
 		data-w_s="{{ w_s }}"></script>
@@ -40,36 +40,35 @@
 		<a href="grafici">Grafici</a></li>
 		<a href="#">Relazione</a>
 		<span class="border">
-			<a href="https://github.com/acuti03" target="_blank"><i class="fa-brands fa-github fa-xl" style="color: #000000;"></i></a>
+			<a href="https://github.com/acuti03" target="_blank"><i class="fa-brands fa-github fa-xl"></i></a>
 		</span>
 	</nav>
 	<hr>
 	<main>
 		<div class="myConatiner shadow">
-			<form id="myform" onsubmit="submitControl()" method="POST" action="">{% csrf_token %}
-				<div class="head">
-					<p></p>
-					<h2>M/M/C</h2>
-					<span>
-						<button type="button" class="btn"><i class="fa-solid fa-arrow-right fa-lg"></i></button>
-					</span>
-				</div>
+			<form id="myform" onsubmit="main.canCalculate.call(main)" method="POST" action="">{% csrf_token %}
+				<h2>M/M/C</h2>
 				<hr>
 				<div class="row">
 					<div class="col input-group mb-2">
 						<span class="input-group-text" id="basic-addon1">$$\lambda$$</span>
-						<input type="number" step="0.01" class="form-control" name="myLambda" placeholder="Insert your lambda" required>
+						<input type="number" step="0.001" class="form-control" name="myLambda" placeholder="Lambda" required>
 					</div>
 					
 					<div class="col input-group mb-2">
 						<span class="input-group-text" id="basic-addon1">$$\mu$$</span>
-						<input type="number" step="0.01" class="form-control" name="mu" placeholder="Insert your Mu" required>
+						<input type="number" step="0.001" class="form-control" name="mu" placeholder="Mu" required>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col input-group mb-2">
 						<span class="input-group-text" id="basic-addon1">$$c$$</span>
-						<input type="number" class="form-control" name="c" placeholder="Insert your c" required>
+						<input type="number" class="form-control" name="c" placeholder="C" required>
+					</div>
+
+					<div class="col input-group mb-2">
+						<span class="input-group-text" id="basic-addon1">$$v$$</span>
+						<input type="number" class="form-control" name="v" placeholder="Velocità">
 					</div>
 				</div>
 			</form>
@@ -129,15 +128,19 @@
 				</div>
 			</div>
 			<div class="row">
-				<button type="submit" form="myform" class="col btn btn-primary">Carica</button>
+				<button type="submit" form="myform" class="col btn btn-primary">
+					<i class="fa-solid fa-arrow-up-from-bracket"></i> Carica
+				</button>
 			</div>
 			<div class="row">
-				<button type="button" onclick="main.printResult.call(main)" id="print" class="col btn btn-success">Calcola</button>
-				<button type="button" onclick="main.clearContent.call(main)" id="cancel" class="col btn btn-danger">Stop</button>
+				<button type="button" onclick="main.printResult.call(main)" id="print" class="col btn btn-success">
+					<i class="fa-solid fa-calculator"></i> Calcola
+				</button>
+				<button type="button" onclick="main.clearContent.call(main)" id="cancel" class="col btn btn-danger">
+					<i class="fa-solid fa-stop"></i> Stop
+				</button>
 			</div>
 		</div>
 	</main>
-	<h1>{{ P_0 }}</h1>
 </body>
-
 </html>

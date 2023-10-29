@@ -1,6 +1,11 @@
 *{
 	font-family: 'JetBrains Mono', monospace;
 }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
 input[type=number] {
 	-moz-appearance: textfield;
 }
@@ -10,22 +15,29 @@ html, body, main{
 body{
 	overflow: hidden;
 }
-nav {
+nav{
 	width: 50%;
 	margin: auto;
 	align-items: baseline;
 	justify-content: space-around;
 	display: flex;
-	padding-top: 15px;
+	font-weight: 600;
+	margin-top: 10px;
 }
 nav > a{
 	text-decoration: none;
 	color: black;
-	padding: 0 15px;
+	padding-right: 15px;
 }
 nav span{
 	border-radius: 8px;
-	padding: 5px;
+	padding: 6px;
+}
+nav span i{
+	color: black;
+}
+nav span:hover{
+	background-color: #f8f9fa;
 }
 main{
 	display: flex;
@@ -46,17 +58,6 @@ main .btn{
 	border-radius: 8px;
 	margin: 10px;
 }
-main .head{
-	display: flex;
-	align-items: baseline;
-	justify-content: space-between;
-}
-main .head h2{
-	padding-left: 70px;
-}
-main .head button{
-	padding-bottom: 10px;
-}
 .row{
 	margin: auto;
 }
@@ -64,4 +65,10 @@ main .head button{
 	height: 38px;
 	width: 30px;
 	justify-content: center;
+}
+.row button{
+	font-weight: 600;
+}
+#unit{
+	width: 55px;
 }

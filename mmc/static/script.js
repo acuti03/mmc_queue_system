@@ -1,4 +1,5 @@
 class Main {
+	v
 	c
 	mu
 	k
@@ -23,7 +24,8 @@ class Main {
 	w_sField
 	myInterval
 
-	constructor(c, mu, k, mu_k, rho, p_0, p_k, p_queue, l_q, l_s, w_q, w_s){
+	constructor(v, c, mu, k, mu_k, rho, p_0, p_k, p_queue, l_q, l_s, w_q, w_s){
+		this.v = v;
 		this.c = c;
 		this.mu = mu;
 		this.k = k;
@@ -52,7 +54,7 @@ class Main {
 	}
 
 	canCalculate(){
-		if(this.c == 0 || this.mu == 0 || this.rho == 0){
+		if(this.c == 0 || this.mu == 0 || this.rho == 1){
 			return false;
 		}
 	}
@@ -96,9 +98,10 @@ class Main {
 			this.l_sField.innerHTML = this.l_s;
 			this.w_qField.innerHTML = this.w_q;
 			this.w_sField.innerHTML = this.w_s;
-			console.log(mu_k[i]);
+			console.log(this.v);
+
 			i++;
-		}, 500)
+		}, this.v)
 	}
 
 	clearContent(){
@@ -114,12 +117,14 @@ class Main {
 		this.w_qField.innerHTML = '';
 		this.w_sField.innerHTML = '';
 
+		this.speed = 1;
 		clearInterval(this.myInterval);
 	}
 }
 
 
 const data = document.currentScript.dataset;
+const v = parseInt(data.v);
 const k = parseInt(data.k);
 const mu_k = JSON.parse(data.mu_k);
 const rho = parseFloat(data.rho);
@@ -136,14 +141,10 @@ const myLambda = parseFloat(data.myLambda);
 
 console.log("k: ", k)
 console.log("mu_k: ", mu_k);
+console.log("rho", rho);
 console.log("p_0: ", p_0);
-console.log("p_k", p_k)
-console.log("p_queue", p_queue);
+console.log("p_k: ", p_k)
+console.log("p_queue: ", p_queue);
+console.log("v: ", v);
 
-const submitControl = () => {
-	if(mu == 0){
-		alert('Valore non valido');
-		return false;
-	}
-}
-let main = new Main(k, mu_k, rho, p_0, p_k, p_queue, l_q, l_s, w_q, w_s);
+let main = new Main(v, c, mu, k, mu_k, rho, p_0, p_k, p_queue, l_q, l_s, w_q, w_s);

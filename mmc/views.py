@@ -23,13 +23,16 @@ def home(request):
 	l_s = 0
 	w_q = 0
 	w_s = 0
+	v = 1000
 
 	if request.method == 'POST':
 		myLambda = float(request.POST['myLambda'])
 		mu = float(request.POST['mu'])
 		c = int(request.POST['c'])
+		if request.POST['v'] != '':
+			v = int(request.POST['v'])
 
-		if c is not 0 and mu is not 0:
+		if c != 0 and mu != 0:
 			x = lambda a : a if a > 0 else -a
 
 			myLambda = x(myLambda)
@@ -42,10 +45,12 @@ def home(request):
 			k = len([i for i in range(0, c + 10)])
 			rho = float("{:.3f}".format(myLambda/(c * mu)))
 
-			if rho is 1:
+			if rho != 1:
 				for i in range(0, c):
 					p_0 += ((c * rho) ** i) / math.factorial(i) + (((c * rho) ** c) / math.factorial(c)) * (1 / (1 - rho))
 				p_0 = float("{:.3f}".format(p_0 ** -1))
+			else:
+				print("porcodio")
 
 			p_k = [i for i in range(0, k + 1)]
 			for k in p_k:
@@ -54,7 +59,7 @@ def home(request):
 				else:
 					p_k[k] = float("{:.3f}".format(p_0 * ((rho ** k) * (c ** c)) / math.factorial(c)))
 
-			if p_0 is not 0:
+			if p_0 != 0:
 				p_queue = float("{:.3f}".format(cErlang(rho * c, c, (p_0 ** -1))))
 				l_q = float("{:.3f}".format(cErlang(rho * c, c, (p_0 ** -1)) * (rho / (1 - rho))))
 				l_x = float("{:.3f}".format(c * rho))
@@ -67,6 +72,7 @@ def home(request):
 
 
 	context = {
+		"v": v,
 		"myLambda": myLambda,
 		"mu": mu,
 		"c": c,
