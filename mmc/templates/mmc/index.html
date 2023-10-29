@@ -20,7 +20,13 @@
 	<!-- My CSS and Javascript file -->
 	<link rel="stylesheet" href="{% static 'index.css' %}">
 	<script src="{% static 'script.js' %}" defer data-k="{{ k }}" data-mu_k="{{ mu_k }}" 
-		data-rho="{{ rho }}" data-p_0="{{ p_0 }}" data-p_k="{{ p_k }}"></script>
+		data-rho="{{ rho }}" data-p_0="{{ p_0 }}" data-p_k="{{ p_k }}" data-p_queue="{{ p_queue }}"
+		data-l_q="{{ l_q }}" data-l_s="{{ l_s }}" data-w_q="{{ w_q }}"
+		data-w_s="{{ w_s }}"></script>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+		integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 	<!-- Adding favicon -->
 	<link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}"/>
@@ -29,6 +35,15 @@
 </head>
 
 <body>
+	<nav>
+		<a href="#">Home</a></li>
+		<a href="#">Grafici</a></li>
+		<a href="#">Relazione</a>
+		<span class="border">
+			<a href="#"><i class="fa-brands fa-github fa-xl" style="color: #000000;"></i></a>
+		</span>
+	</nav>
+	<hr>
 	<main>
 		<div class="myConatiner shadow">
 			<form id="myform" method="POST" action="">{% csrf_token %}
@@ -54,6 +69,11 @@
 			</form>
 			<div class="row">
 				<div class="col input-group mb-2">
+					<span class="input-group-text" id="basic-addon1">$$k$$</span>
+					<output class="form-control" id="k"></output>
+				</div>
+
+				<div class="col input-group mb-2">
 					<span class="input-group-text" id="basic-addon1">$$\mu_k$$</span>
 					<output class="form-control" id="mu_k"></output>
 				</div>
@@ -63,9 +83,10 @@
 					<span class="input-group-text" id="basic-addon1">$$\rho$$</span>
 					<output class="form-control" id="rho"></output>
 				</div>
+
 				<div class="col input-group mb-2">
-					<span class="input-group-text" id="basic-addon1">$$k$$</span>
-					<output class="form-control" id="k"></output>
+					<span class="input-group-text" id="basic-addon1">$$\mathbb{P}_q$$</span>
+					<output class="form-control" id="p_queue"></output>
 				</div>
 			</div>
 			<div class="row">
@@ -82,23 +103,23 @@
 			<div class="row">
 				<div class="col input-group mb-2">
 					<span class="input-group-text" id="basic-addon1">$$L_s$$</span>
-					<output class="form-control"></output>
+					<output class="form-control" id="l_s"></output>
 				</div>
 
 				<div class="col input-group mb-2">
 					<span class="input-group-text" id="basic-addon1">$$L_q$$</span>
-					<output class="form-control"></output>
+					<output class="form-control" id="l_q"></output>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col input-group mb-2">
 					<span class="input-group-text" id="basic-addon1">$$W_s$$</span>
-					<output class="form-control"></output>
+					<output class="form-control" id="w_s"></output>
 				</div>
 				
 				<div class="col input-group mb-2">
 					<span class="input-group-text" id="basic-addon1">$$W_q$$</span>
-					<output class="form-control"></output>
+					<output class="form-control" id="w_q"></output>
 				</div>
 			</div>
 			<div class="row">

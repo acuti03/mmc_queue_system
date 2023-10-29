@@ -7,11 +7,33 @@ input[type=number] {
 html, body, main{
 	height: 100%;
 }
+body{
+	overflow: hidden;
+}
+nav {
+	width: 50%;
+	margin: auto;
+	align-items: baseline;
+	justify-content: space-around;
+	display: flex;
+	padding-top: 15px;
+}
+nav > a{
+	text-decoration: none;
+	color: black;
+	padding: 0 15px;
+}
+nav span{
+	border-radius: 8px;
+	padding: 5px;
+}
 main{
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	padding: 20px;
+	align-items: baseline;
+	margin-top: 20px;
 }
 .myConatiner{
 	text-align: center;
