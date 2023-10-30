@@ -17,7 +17,7 @@
 
 	<!-- My CSS and Javascript file -->
 	<link rel="stylesheet" href="{% static 'index.css' %}">
-	<script src="{% static 'script.js' %}" defer data-k="{{ k }}" data-mu_k="{{ mu_k }}"
+	<script src="{% static 'index.js' %}" defer data-k="{{ k }}" data-mu_k="{{ mu_k }}"
 		data-c="{{ c }}" data-myLambda="{{ myLambda }}" data-mu="{{ mu }}" data-v="{{ v }}"
 		data-rho="{{ rho }}" data-p_0="{{ p_0 }}" data-p_k="{{ p_k }}" data-p_queue="{{ p_queue }}"
 		data-l_q="{{ l_q }}" data-l_s="{{ l_s }}" data-w_q="{{ w_q }}"
@@ -27,6 +27,9 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
 		integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
 		crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	<!-- Add Chart-js -->
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 	<!-- Adding favicon -->
 	<link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}"/>

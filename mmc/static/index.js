@@ -188,4 +188,4 @@ console.log("p_0: ", p_0);
 console.log("p_k: ", p_k)
 console.log("p_queue: ", p_queue);
 
-let main = new Main(v, c, mu, k, mu_k, rho, p_0, p_k, p_queue, l_q, l_s, w_q, w_s);
+let main = new Main(v, c, mu, k, mu_k, rho, p_0, p_k, p_queue, l_q, l_s, w_q, w_s); 

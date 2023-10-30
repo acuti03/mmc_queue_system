@@ -1,0 +1,32 @@
+*{
+	font-family: 'JetBrains Mono', monospace;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+nav{
+	width: 50%;
+	margin: auto;
+	align-items: baseline;
+	justify-content: space-around;
+	display: flex;
+	font-weight: 550;
+	margin-top: 10px;
+}
+nav > a{
+	text-decoration: none;
+	color: black;
+	padding-right: 15px;
+}
+nav span{
+	border-radius: 8px;
+	padding: 6px;
+}
+nav span i{
+	color: black;
+}
+nav span:hover{
+	background-color: #f8f9fa;
+}
