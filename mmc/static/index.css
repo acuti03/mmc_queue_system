@@ -21,7 +21,7 @@ nav{
 	align-items: baseline;
 	justify-content: space-around;
 	display: flex;
-	font-weight: 600;
+	font-weight: 550;
 	margin-top: 10px;
 }
 nav > a{
@@ -57,6 +57,8 @@ main .btn{
 	margin-top: 20px;
 	border-radius: 8px;
 	margin: 10px;
+	font-weight: 600;
+	padding: 7px;
 }
 .row{
 	margin: auto;
@@ -65,10 +67,4 @@ main .btn{
 	height: 38px;
 	width: 30px;
 	justify-content: center;
-}
-.row button{
-	font-weight: 600;
-}
-#unit{
-	width: 55px;
 }

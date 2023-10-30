@@ -23,9 +23,12 @@ class Main {
 	w_s
 	w_sField
 	myInterval
+	i
 
 	constructor(v, c, mu, k, mu_k, rho, p_0, p_k, p_queue, l_q, l_s, w_q, w_s){
+		this.i = 0
 		this.v = v;
+		this.firstV = v;
 		this.c = c;
 		this.mu = mu;
 		this.k = k;
@@ -59,8 +62,34 @@ class Main {
 		}
 	}
 
+	speedUp(){
+		clearInterval(this.myInterval);
+
+		this.myInterval = setInterval(() => {
+
+			if(this.i == this.k){
+				clearInterval(this.myInterval);
+				document.getElementById('print').disabled = false;
+			}
+
+			this.kField.innerHTML = this.i;
+			this.mu_kField.innerHTML = this.mu_k[this.i];
+			this.rhoField.innerHTML = this.rho;
+			this.p_0Field.innerHTML = this.p_0;
+			this.p_kField.innerHTML = this.p_k[this.i];
+			this.p_queueField.innerHTML = this.p_queue;
+			this.l_qField.innerHTML = this.l_q;
+			this.l_sField.innerHTML = this.l_s;
+			this.w_qField.innerHTML = this.w_q;
+			this.w_sField.innerHTML = this.w_s;
+			this.i++;
+
+		}, 0)
+		this.i = 0;
+	}
+
 	printResult(){
-		let i = 0;
+		this.i = 0;
 
 		if(this.canCalculate() == false){
 			alert("Valori non validi")
@@ -83,29 +112,33 @@ class Main {
 
 		this.myInterval = setInterval(() => {
 
-			if(i == this.k){
+			if(this.i == this.k){
 				clearInterval(this.myInterval);
 				document.getElementById('print').disabled = false;
 			}
 
-			this.kField.innerHTML = i;
-			this.mu_kField.innerHTML = this.mu_k[i];
+			this.kField.innerHTML = this.i;
+			this.mu_kField.innerHTML = this.mu_k[this.i];
 			this.rhoField.innerHTML = this.rho;
 			this.p_0Field.innerHTML = this.p_0;
-			this.p_kField.innerHTML = this.p_k[i];
+			this.p_kField.innerHTML = this.p_k[this.i];
 			this.p_queueField.innerHTML = this.p_queue;
 			this.l_qField.innerHTML = this.l_q;
 			this.l_sField.innerHTML = this.l_s;
 			this.w_qField.innerHTML = this.w_q;
 			this.w_sField.innerHTML = this.w_s;
-			console.log(this.v);
+			this.i++;
 
-			i++;
 		}, this.v)
 	}
 
-	clearContent(){
+	stopInterval(){
 		document.getElementById('print').disabled = false;
+		clearInterval(this.myInterval);
+	}
+
+	refresh(){
+		this.i = 0;
 		this.kField.innerHTML = '';
 		this.mu_kField.innerHTML = '';
 		this.rhoField.innerHTML = '';
@@ -116,8 +149,9 @@ class Main {
 		this.l_sField.innerHTML = '';
 		this.w_qField.innerHTML = '';
 		this.w_sField.innerHTML = '';
+		this.v = this.firstV;
 
-		this.speed = 1;
+		document.getElementById('print').disabled = false;
 		clearInterval(this.myInterval);
 	}
 }
@@ -145,6 +179,5 @@ console.log("rho", rho);
 console.log("p_0: ", p_0);
 console.log("p_k: ", p_k)
 console.log("p_queue: ", p_queue);
-console.log("v: ", v);
 
 let main = new Main(v, c, mu, k, mu_k, rho, p_0, p_k, p_queue, l_q, l_s, w_q, w_s);

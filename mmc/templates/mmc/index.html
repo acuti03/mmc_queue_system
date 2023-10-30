@@ -46,7 +46,7 @@
 	<hr>
 	<main>
 		<div class="myConatiner shadow">
-			<form id="myform" onsubmit="main.canCalculate.call(main)" method="POST" action="">{% csrf_token %}
+			<form id="myform" method="POST" action="">{% csrf_token %}
 				<h2>M/M/C</h2>
 				<hr>
 				<div class="row">
@@ -131,13 +131,21 @@
 				<button type="submit" form="myform" class="col btn btn-primary">
 					<i class="fa-solid fa-arrow-up-from-bracket"></i> Carica
 				</button>
+				<button type="button" onclick="main.refresh.call(main)" id="cancel" class="col btn btn-warning">
+					<i class="fa-solid fa-arrow-rotate-right"></i> Reset
+				</button>
 			</div>
 			<div class="row">
 				<button type="button" onclick="main.printResult.call(main)" id="print" class="col btn btn-success">
 					<i class="fa-solid fa-calculator"></i> Calcola
 				</button>
-				<button type="button" onclick="main.clearContent.call(main)" id="cancel" class="col btn btn-danger">
+
+				<button type="button" onclick="main.stopInterval.call(main)" id="cancel" class="col btn btn-danger">
 					<i class="fa-solid fa-stop"></i> Stop
+				</button>
+
+				<button type="button" id="speedUp" onclick="main.speedUp.call(main)" class="col btn btn-info">
+					<i class="fa-solid fa-angles-right"></i> Finisci
 				</button>
 			</div>
 		</div>
