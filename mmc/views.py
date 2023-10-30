@@ -4,9 +4,9 @@ from json import dumps
 import math
 
 # Create your views here.
-def cErlang(a, c, p_0):
-	return (((a ** c) / math.factorial(c)) * 1 / (1 - (a / c)) ) / p_0
-
+def cErlang(c, rho, p_0):
+	print((((c * rho) ** c) / math.factorial(c)))
+	return (p_0) * (((c * rho) ** c) / math.factorial(c)) * (1 / (1 - rho))
 
 def home(request):
 	c = 0
@@ -29,10 +29,13 @@ def home(request):
 		myLambda = float(request.POST['myLambda'])
 		mu = float(request.POST['mu'])
 		c = int(request.POST['c'])
+
 		if request.POST['v'] != '':
 			v = int(request.POST['v'])
 
-		if c != 0 and mu != 0:
+		rho = float("{:.3f}".format(myLambda/(c * mu)))
+
+		if c != 0 and mu != 0 and rho != 1:
 			x = lambda a : a if a > 0 else -a
 
 			myLambda = x(myLambda)
@@ -43,14 +46,10 @@ def home(request):
 
 			mu_k = ([x(k, c, mu) for k in range(0, c + 11)])
 			k = len([i for i in range(0, c + 10)])
-			rho = float("{:.3f}".format(myLambda/(c * mu)))
 
-			if rho != 1:
-				for i in range(0, c):
-					p_0 += ((c * rho) ** i) / math.factorial(i) + (((c * rho) ** c) / math.factorial(c)) * (1 / (1 - rho))
-				p_0 = float("{:.3f}".format(p_0 ** -1))
-			else:
-				print("porcodio")
+			for i in range(0, c):
+				p_0 += ((c * rho) ** i) / math.factorial(i) + (((c * rho) ** c) / math.factorial(c)) * (1 / (1 - rho))
+			p_0 = float("{:.3f}".format(p_0 ** -1))
 
 			p_k = [i for i in range(0, k + 1)]
 			for k in p_k:
@@ -59,16 +58,17 @@ def home(request):
 				else:
 					p_k[k] = float("{:.3f}".format(p_0 * ((rho ** k) * (c ** c)) / math.factorial(c)))
 
-			if p_0 != 0:
-				p_queue = float("{:.3f}".format(cErlang(rho * c, c, (p_0 ** -1))))
-				l_q = float("{:.3f}".format(cErlang(rho * c, c, (p_0 ** -1)) * (rho / (1 - rho))))
-				l_x = float("{:.3f}".format(c * rho))
-				l_s = float("{:.3f}".format(l_q + l_x))
-				w_q = float("{:.3f}".format(cErlang(rho * c, c, (p_0 ** -1)) / ((c * mu) * (1 - rho))))
-				w_s = float("{:.3f}".format((cErlang(rho * c, c, (p_0 ** -1)) + (c * (1 - rho))) / ((c * mu)*(1 - rho))))
+			p_queue = float("{:.3f}".format(cErlang(c, rho, p_0)))
+			l_q = float("{:.3f}".format(cErlang(c, rho, p_0) * (rho / (1 - rho))))
+			l_x = float("{:.3f}".format(c * rho))
+			l_s = float("{:.3f}".format(l_q + l_x))
+			w_q = float("{:.3f}".format(cErlang(c, rho, p_0) / ((c * mu) * (1 - rho))))
+			w_s = float("{:.3f}".format((cErlang(c, rho, p_0) + (c * (1 - rho))) / ((c * mu) * (1 - rho))))
 
 			newMmc = Mmc(myLambda = myLambda, mu = mu, c = c)
 			newMmc.save()
+
+			print("p_queue: ", p_queue)
 
 
 	context = {
