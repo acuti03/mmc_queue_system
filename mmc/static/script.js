@@ -24,6 +24,7 @@ class Main {
 	w_sField
 	myInterval
 	i
+	callSpeedUp
 
 	constructor(v, c, mu, k, mu_k, rho, p_0, p_k, p_queue, l_q, l_s, w_q, w_s){
 		this.i = 0
@@ -54,6 +55,7 @@ class Main {
 		this.w_sField = NaN;
 
 		this.myInterval = NaN;
+		this.callSpeedUp = false;
 	}
 
 	canCalculate(){
@@ -63,6 +65,7 @@ class Main {
 	}
 
 	speedUp(){
+		this.callSpeedUp = true;
 		clearInterval(this.myInterval);
 
 		this.myInterval = setInterval(() => {
@@ -85,11 +88,11 @@ class Main {
 			this.i++;
 
 		}, 0)
+
 		this.i = 0;
 	}
 
 	printResult(){
-		this.i = 0;
 
 		if(this.canCalculate() == false){
 			alert("Valori non validi")
@@ -109,6 +112,11 @@ class Main {
 
 		document.getElementById('print').disabled = true;
 		console.log(this.kField);
+
+		if (this.callSpeedUp == true){
+			this.i = 0;
+			this.callSpeedUp = false;
+		}
 
 		this.myInterval = setInterval(() => {
 

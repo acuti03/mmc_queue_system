@@ -5,7 +5,6 @@ import math
 
 # Create your views here.
 def cErlang(c, rho, p_0):
-	print((((c * rho) ** c) / math.factorial(c)))
 	return (p_0) * (((c * rho) ** c) / math.factorial(c)) * (1 / (1 - rho))
 
 def home(request):
