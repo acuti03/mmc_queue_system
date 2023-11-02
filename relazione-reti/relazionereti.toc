@@ -1,0 +1,9 @@
+\babel@toc {italian}{}\relax 
+\babel@toc {italian}{}\relax 
+\contentsline {section}{\numberline {1}Introduzione}{3}{}%
+\contentsline {subsection}{\numberline {1.1}Divisione del lavoro}{3}{}%
+\contentsline {section}{\numberline {2}realizzazione del simulatore}{3}{}%
+\contentsline {subsection}{\numberline {2.1}Linguaggi utilizzati per l'implementazione:}{3}{}%
+\contentsline {section}{\numberline {3}Trattazione dell'argomento}{3}{}%
+\contentsline {section}{\numberline {4}Calcoli e cenni teorici}{4}{}%
+\contentsline {section}{\numberline {5}Conclusioni}{6}{}%
