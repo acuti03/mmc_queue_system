@@ -6,6 +6,7 @@ input::-webkit-inner-spin-button {
 	-webkit-appearance: none;
 	margin: 0;
 }
+
 nav{
 	width: 50%;
 	margin: auto;
@@ -29,4 +30,11 @@ nav span i{
 }
 nav span:hover{
 	background-color: #f8f9fa;
+}
+.bdr{
+	width: 50%;
+}
+thead{
+	background-color: red;
+	color: white;
 }

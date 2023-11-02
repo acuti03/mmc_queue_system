@@ -89,21 +89,26 @@ def home(request):
 	return render(request, 'mmc/index.html', context)
 
 def grafici(request):
-	#data = [i for i in Mmc.objects.values()]
-	#myLambda = re.findall("\d+\.\d+", str([i for i in Mmc.objects.values("myLambda")]))
-	#mu = re.findall("\d+\.\d+", str([i for i in Mmc.objects.values("mu")]))
-	#c = re.findall("\d+\.\d+", str([i for i in Mmc.objects.values("c")]))
 	myLambda = [float(i) for i in re.findall("\d+\.\d+", str([i for i in Mmc.objects.values("myLambda")]))]
 	mu = [float(i) for i in re.findall("\d+\.\d+", str([i for i in Mmc.objects.values("mu")]))]
 	c = [int(i) for i in [float(i) for i in re.findall("\d+\.\d+", str([i for i in Mmc.objects.values("c")]))]]
+	myId = [int(i) for i in re.findall("\d+", str([i for i in Mmc.objects.values("id")]))]
 
 	print("lambda: ", myLambda)
 	print("mu: ", mu)
 	print("c:", c)
+	print("id", myId)
+
+
+	data = Mmc.objects.all().values()
 
 	context = {
+		'data': data,
+		"id": myId,
 		"myLambda": myLambda,
 		"mu": mu,
 		"c": c
 	}
+
+	print(context)
 	return render(request, 'mmc/grafici.html', context)

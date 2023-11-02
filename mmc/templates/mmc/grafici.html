@@ -45,8 +45,27 @@
 		</span>
 	</nav>
 	<hr>
-	{% for i in mu %}
-	<h1>{{ i }}</h1>
-	{% endfor %}
+	<div class="container">
+		<table class="table bdr">
+			<thead class="bg-success">
+			  <tr>
+				<th scope="col">#</th>
+				<th scope="col">Lambda</th>
+				<th scope="col">Mu</th>
+				<th scope="col">C</th>
+			  </tr>
+			</thead>
+			<tbody>
+			{% for i in data %}
+				<tr>
+					<th scope="row">{{ i.id }}</th>
+					<td>{{ i.myLambda }}</td>
+					<td>{{ i.mu }}</td>
+					<td>{{ i.c }}</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		  </table>
+	</div>
 </body>
 </html>
