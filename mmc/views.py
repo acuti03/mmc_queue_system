@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import Mmc
-from json import dumps
-import math
+from mmc.models import Mmc
+import math, json, re
 
 # Create your views here.
 def cErlang(c, rho, p_0):
@@ -67,19 +67,17 @@ def home(request):
 			newMmc = Mmc(myLambda = myLambda, mu = mu, c = c)
 			newMmc.save()
 
-			print("p_queue: ", p_queue)
-
 
 	context = {
 		"v": v,
 		"myLambda": myLambda,
 		"mu": mu,
 		"c": c,
-		"mu_k": dumps(mu_k),
+		"mu_k": json.dumps(mu_k),
 		"k": k,
 		"rho": rho,
 		"p_0": p_0,
-		"p_k": dumps(p_k),
+		"p_k": json.dumps(p_k),
 		"p_queue": p_queue,
 		"l_q": l_q,
 		"l_x": l_x,
@@ -91,4 +89,21 @@ def home(request):
 	return render(request, 'mmc/index.html', context)
 
 def grafici(request):
-	return render(request, 'mmc/grafici.html')
+	#data = [i for i in Mmc.objects.values()]
+	#myLambda = re.findall("\d+\.\d+", str([i for i in Mmc.objects.values("myLambda")]))
+	#mu = re.findall("\d+\.\d+", str([i for i in Mmc.objects.values("mu")]))
+	#c = re.findall("\d+\.\d+", str([i for i in Mmc.objects.values("c")]))
+	myLambda = [float(i) for i in re.findall("\d+\.\d+", str([i for i in Mmc.objects.values("myLambda")]))]
+	mu = [float(i) for i in re.findall("\d+\.\d+", str([i for i in Mmc.objects.values("mu")]))]
+	c = [int(i) for i in [float(i) for i in re.findall("\d+\.\d+", str([i for i in Mmc.objects.values("c")]))]]
+
+	print("lambda: ", myLambda)
+	print("mu: ", mu)
+	print("c:", c)
+
+	context = {
+		"myLambda": myLambda,
+		"mu": mu,
+		"c": c
+	}
+	return render(request, 'mmc/grafici.html', context)
