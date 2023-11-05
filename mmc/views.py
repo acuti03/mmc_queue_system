@@ -64,7 +64,7 @@ def home(request):
 			w_q = float("{:.3f}".format(cErlang(c, rho, p_0) / ((c * mu) * (1 - rho))))
 			w_s = float("{:.3f}".format((cErlang(c, rho, p_0) + (c * (1 - rho))) / ((c * mu) * (1 - rho))))
 
-			newMmc = Mmc(myLambda = myLambda, mu = mu, c = c)
+			newMmc = Mmc(myLambda = myLambda, mu = mu, c = c, k = k, p_k = p_k)
 			newMmc.save()
 
 
@@ -93,12 +93,6 @@ def grafici(request):
 	mu = [float(i) for i in re.findall("\d+\.\d+", str([i for i in Mmc.objects.values("mu")]))]
 	c = [int(i) for i in [float(i) for i in re.findall("\d+\.\d+", str([i for i in Mmc.objects.values("c")]))]]
 	myId = [int(i) for i in re.findall("\d+", str([i for i in Mmc.objects.values("id")]))]
-
-	print("lambda: ", myLambda)
-	print("mu: ", mu)
-	print("c:", c)
-	print("id", myId)
-
 
 	data = Mmc.objects.all().values()
 
