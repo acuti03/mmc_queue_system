@@ -7,21 +7,69 @@ import math, json, re
 def cErlang(c, rho, p_0):
 	return (p_0) * (((c * rho) ** c) / math.factorial(c)) * (1 / (1 - rho))
 
+def selectFloat(string):
+	return [float(i) for i in re.findall("\d+\.\d+", str([i for i in Mmc.objects.values(string)]))]
+
+def selectInt(string):
+	return [int(i) for i in re.findall("\d+", str([i for i in Mmc.objects.values(string)]))]
+
+
 def home(request):
-	c = 0
-	myLambda = 0
-	mu = 0
-	mu_k = [0]
-	k = 0
-	rho = 0
-	p_0 = 0
-	p_k = [0]
-	p_queue = 0
-	l_q = 0
-	l_x = 0
-	l_s = 0
-	w_q = 0
-	w_s = 0
+	tmp = selectFloat('myLambda')
+
+	if tmp != []:
+		myLambda = selectFloat('myLambda')
+		myLambda = myLambda[len(myLambda) - 1]
+		mu = selectFloat('mu')
+		mu = mu[len(mu) - 1]
+		c = selectInt('c')
+		c = c[len(c) - 1]
+
+		x = lambda k, c, mu : "{:.3f}".format(k * mu) if (k * mu) < (c * mu) else "{:.3f}".format(c * mu)
+
+		mu_k = ([x(k, c, mu) for k in range(0, c + 11)])
+		k = selectInt('k')
+		k = k[len(k) - 1]
+		rho = selectFloat('rho')
+		rho = rho[len(rho) - 1]
+		p_0 = selectFloat('p_0')
+		p_0 = p_0[len(p_0) - 1]
+		p_k = [i for i in range(0, k + 1)]
+
+		for k in p_k:
+			if k <= c:
+				p_k[k] = float("{:.3f}".format(p_0 * ((c * rho) ** k) / math.factorial(k)))
+			else:
+				p_k[k] = float("{:.3f}".format(p_0 * ((rho ** k) * (c ** c)) / math.factorial(c)))
+
+		p_queue = selectFloat('p_queue')
+		p_queue = p_queue[len(p_queue) - 1]
+		l_q = selectFloat('l_q')
+		l_q = l_q[len(l_q) - 1]
+		l_x = selectFloat('l_x')
+		l_x = l_x[len(l_x) - 1]
+		l_s = selectFloat('l_s')
+		l_s = l_s[len(l_s) - 1]
+		w_q = selectFloat('w_q')
+		w_q = w_q[len(w_q) - 1]
+		w_s = selectFloat('w_s')
+		w_s = w_s[len(w_s) - 1]
+	else:
+		myLambda = 0
+		mu = 0
+		c = 0
+		mu_k = [0]
+		k = 0
+		rho = 0
+		p_0 = 0
+		p_k = [0]
+		p_queue = 0
+		l_q = 0
+		l_x = 0
+		l_s = 0
+		w_q = 0
+		w_s = 0
+		
 	v = 1000
 
 	if request.method == 'POST':
@@ -64,7 +112,7 @@ def home(request):
 			w_q = float("{:.3f}".format(cErlang(c, rho, p_0) / ((c * mu) * (1 - rho))))
 			w_s = float("{:.3f}".format((cErlang(c, rho, p_0) + (c * (1 - rho))) / ((c * mu) * (1 - rho))))
 
-			newMmc = Mmc(myLambda = myLambda, mu = mu, c = c, k = k, p_k = p_k)
+			newMmc = Mmc(myLambda = myLambda, mu = mu, c = c, rho = rho, k = k, mu_k = mu_k, p_0 = p_0, p_k = p_k, p_queue = p_queue, l_q = l_q, l_s = l_s, l_x = l_x, w_q = w_q, w_s = w_s)
 			newMmc.save()
 
 
@@ -98,11 +146,6 @@ def grafici(request):
 
 	context = {
 		'data': data,
-		"id": myId,
-		"myLambda": myLambda,
-		"mu": mu,
-		"c": c
 	}
 
-	print(context)
 	return render(request, 'mmc/grafici.html', context)
