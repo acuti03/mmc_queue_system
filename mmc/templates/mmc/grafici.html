@@ -53,6 +53,9 @@
 				<th scope="col">Lambda</th>
 				<th scope="col">Mu</th>
 				<th scope="col">C</th>
+				<th scope="col">Plot</th>
+				<th scope="col">Plot</th>
+				<th scope="col">Plot</th>
 			  </tr>
 			</thead>
 			<tbody>
@@ -62,10 +65,28 @@
 					<td>{{ i.myLambda }}</td>
 					<td>{{ i.mu }}</td>
 					<td>{{ i.c }}</td>
+					<td>
+						<button class="btn btn-primary" onclick="plot(`{{ i.k }}`, `{{ i.p_k }}`)">
+							<i class="fa-solid fa-chart-simple"></i>
+						</button>
+					</td>
+					<td>
+						<button class="btn btn-info">
+							<i class="fa-solid fa-chart-simple"></i>
+						</button>
+					</td>
+					<td>
+						<button class="btn btn-danger">
+							<i class="fa-solid fa-chart-simple"></i>
+						</button>
+					</td>
 				</tr>
 			{% endfor %}
 			</tbody>
-		  </table>
+		</table>
+	</div>
+	<div class="container">
+		<canvas id="queueChart"></canvas>
 	</div>
 </body>
 </html>
