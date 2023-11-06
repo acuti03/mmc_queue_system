@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.urls import reverse
+from django.http import HttpResponseRedirect
 from .models import Mmc
 from mmc.models import Mmc
 import math, json, re
@@ -149,3 +151,9 @@ def grafici(request):
 	}
 
 	return render(request, 'mmc/grafici.html', context)
+
+def delete(request, id):
+	mmc = Mmc.objects.get(id=id)
+	mmc.delete()
+
+	return HttpResponseRedirect(reverse('grafici'))

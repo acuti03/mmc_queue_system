@@ -73,3 +73,7 @@ const plot = (kLen, p_k) => {
 	}
 	myChart = new Chart(ctx, config);
 }
+
+const closePlot = () => {
+	myChart.destroy();
+}

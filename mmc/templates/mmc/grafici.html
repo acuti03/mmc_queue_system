@@ -54,8 +54,8 @@
 				<th scope="col">Mu</th>
 				<th scope="col">C</th>
 				<th scope="col">Plot</th>
-				<th scope="col">Plot</th>
-				<th scope="col">Plot</th>
+				<th scope="col">Close</th>
+				<th scope="col">Delete</th>
 			  </tr>
 			</thead>
 			<tbody>
@@ -71,14 +71,16 @@
 						</button>
 					</td>
 					<td>
-						<button class="btn btn-info">
-							<i class="fa-solid fa-chart-simple"></i>
+						<button class="btn btn-warning" onclick="closePlot()">
+							<i class="fa-solid fa-circle-xmark"></i>
 						</button>
 					</td>
 					<td>
-						<button class="btn btn-danger">
-							<i class="fa-solid fa-chart-simple"></i>
-						</button>
+						<a href="delete/{{ i.id }}">
+							<button class="btn btn-danger">
+								<i class="fa-solid fa-trash"></i>
+							</button>
+						</a>
 					</td>
 				</tr>
 			{% endfor %}
