@@ -1,5 +1,4 @@
 # progetto-reti
-![](./images/screen1.jpg "")
 ![](./images/screen4.jpg "")
 
 
