@@ -36,6 +36,7 @@ Creazione del database:
 $ psql postgres 
 ```
 per aprire il pannello di controllo di postgresql.
+
 2. Successivamente creare il databse chiamandolo: "gfg".
 ```SQL
 $ CREATE DATABASE gfg;
