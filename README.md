@@ -1,4 +1,6 @@
 # progetto-reti
+![](./images/screen1.jpg "")
+
 
 ## Descrizione
 L’obbiettivo formativo legato allo svolgimento di questo compito è quello di comprendere il comportamento del sistema a coda M/M/c.
