@@ -31,10 +31,18 @@ nav span i{
 nav span:hover{
 	background-color: #f8f9fa;
 }
-.bdr{
-	width: 50%;
-}
 thead{
 	background-color: red;
 	color: white;
+}
+.bdr{
+	margin: auto;
+	width: 90%;
+}
+.btn{
+	border-radius: 8px;
+}
+canvas{
+	margin-bottom: 50px;
+	margin-top: 50px;
 }

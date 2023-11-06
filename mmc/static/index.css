@@ -12,9 +12,6 @@ input[type=number] {
 html, body, main{
 	height: 100%;
 }
-body{
-	overflow: hidden;
-}
 nav{
 	width: 50%;
 	margin: auto;
