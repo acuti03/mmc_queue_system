@@ -1,0 +1,225 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{pgf}
+% \usepackage[condensed,math]{kurier}
+% \usepackage[T1]{fontenc}
+\usepackage{svg}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{stanli}
+\usepackage{afterpage}
+\usepackage{multirow}
+\usepackage{subfig}
+\usepackage{pgfpages}
+\usepackage{svg}
+\usepackage{rotating}
+\usepackage{mathtools}
+%\usepackage{times}
+
+
+\pgfpagesdeclarelayout{boxed}
+{
+	\edef\pgfpageoptionborder{0pt}
+}
+{
+	\pgfpagesphysicalpageoptions
+	{%
+		logical pages=1,%
+	}
+	\pgfpageslogicalpageoptions{1}
+	{
+		resized width=.9\pgfphysicalwidth,%
+		resized height=.9\pgfphysicalheight,%
+		center=\pgfpoint{.5\pgfphysicalwidth}{.5\pgfphysicalheight}%
+	}%
+}
+
+\pgfpagesuselayout{boxed}
+
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[italian]{babel}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\begin{document}
+	
+	\newcommand{\subf}[2]{%
+		{\small\begin{tabular}[t]{@{}c@{}}
+				#1\\#2
+		\end{tabular}}%
+	}
+	
+	\begin{titlepage}
+		\begin{center}
+			\vspace*{3cm}
+			
+			\Huge
+			\textbf{Progetto reti}
+			
+			\vspace{0.3cm}
+			\Huge
+			 sistema a coda M/M/$c$
+			
+			\vspace{0.8cm}
+			\large
+			\today
+			%INSTRUCTED BY: MRS. A.A.S.KAUSHLYA
+			
+			
+			\vspace{0.5cm}
+			\LARGE
+			
+			
+			\vspace{3cm}
+			
+			\textbf{}
+            \includegraphics[width=0.6\textwidth]{logo-unife.png}
+			
+			\vfill
+			
+			
+			
+			\vspace{2.8cm}
+			
+			
+			
+			\Large
+			
+			
+			
+			
+		\end{center}
+		\Large
+		\begin{tabbing}
+			\hspace*{0em}\= \hspace*{0em} \= \kill % set the tabbings
+			\>\> \textbf{Simone Acuti} - 183843 - simone.acuti@edu.unife.it\\
+			\>\> \textbf{Leonardo Lodi} - 183845 - leonardo03.lodi@edu.unife.it\\
+			\>\> \textbf{Marius Ceban} - 187612 - marius.cebann@edu.unife.it\\
+		\end{tabbing}
+		
+\end{titlepage}
+\tableofcontents
+\newpage
+\section{Obbiettivo}
+
+    Questa relazione è stata scritta per completare l'insieme di elementi che costituiscono il progetto di reti di telecomunicazioni.
+    
+    L'obbiettivo legato allo svolgimento di questo compito è quello di comprendere il comportamento del sistema a coda M/M/$c$. \\ 
+    Integrato al progetto deve essere presente un simulatore che descriva al meglio il comportamento del sistema stesso. \\ \\
+    Sulla repository di GitHub presente al seguente \href{https://github.com/acuti03/progetto-reti}{link} è presente un file di nome README.md che spiega nel dettaglio i passaggi da eseguire per poter provare il simulatore.
+    
+\section{Sviluppo del simulatore M/M/c}
+    Lo sviluppo del simulatore è avvenuto tramite Django, ovvero un framework open-source scritto in Python per lo sviluppo di applicazioni web. La peculiarità di questo framework è la possibilità di implementare diversi linguaggi contemporaneamente tra cui: 
+    \begin{itemize}
+        \item  Per la stesura della relazione è stato utilizzato LaTex.
+        \item  Le varie operazioni di calcolo presenti nel simulatore derivano dall'utilizzo di Python. 
+        \item  Infine per la realizzazione dell'interfaccia grafica abbiamo utilizzato Javascript unito ad HTML e CSS..
+    \end{itemize}
+
+\section{Variabili e dati noti}
+
+I dati di interesse comune forniti sono i seguenti:
+    
+    \begin{itemize}
+    \item La lettera $c$ in questo sistema descrive il numero di servitori.
+    
+    \item Il tasso di servizio viene rappresentato da $\mu$ e descrive le utenze per ogni secondo [pkt/s]. 
+    
+    \item L'ultimo dato noto viene descritto dalla lettera $\lambda$ e rappresenta il tasso di arrivi per ogni secondo [pkt/s].
+    \end{itemize}
+    Questi dati torneranno utili in seguito nella sezione dedicata ai cenni teorici e calcoli. \\
+\newpage
+\section{Calcoli e cenni teorici}
+Vediamo un caso generale relativo alla risoluzione di un sistema a coda M/M/$c$. In questo caso abbiamo un numero finito $c$ di servitori, ovviamente maggiore di uno. Di conseguenza il tasso di servizio può arrivare fino a $c\mu$. \\ \\
+    Il ritmo degli arrivi non dipende dallo stato. $\rightarrow$ $\lambda k \ = \ \lambda$ \\ \\ 
+    Il ritmo di servizio invece dipende dallo stato. $\rightarrow$ $\mu_{k} \ = \ $ min $ \{k\mu , c\mu\}$ \\ 
+    \begin{align*}
+    P_{k} \ = \
+    \begin{cases}
+     &P_{0} \ \prod_{i = 0}^{k - 1}\frac{\lambda}{(i + 1) \mu};\ k \le c\\ \\
+     &P_{0} \ \prod_{i = 0}^{c - 1}\frac{\lambda}{(i + 1) \mu}\ \prod_{j = c}^{k - 1}\frac{\lambda}{c \mu}; \ \mu > c
+     \end{cases}
+    P_{k} \ = \
+    \begin{cases}
+     &P_{0} \ (\frac{\lambda}{\mu})^{k} \ \frac{1}{k!};\ k \le c\\ \\
+     &P_{0} \ (\frac{\lambda}{\mu})^{k} \ \frac{1}{c!c^{k-c}}; \ k > c
+    \end{cases}
+    \end{align*} 
+    $P_{k}$ = Probabilità di essere nello stato k.
+    \begin{align*}
+    E\{\lambda\} \ E\{T_{x}\} \ = \ \frac{\lambda}{\mu}
+    \end{align*}
+    $E\{\lambda\}$ $\rightarrow$ Ritmo medio degli arrivi. \\
+    $E\{T_{x}\}$ $\rightarrow$ Tempo medio di servizio. \\ \\
+    Il fattore di utilizzo è $\rho$ (rho) $\rightarrow$ $\rho \ = \ \frac{\lambda}{\mu_{tot}}$ \\ \\
+    Con massimo tasso di smaltimento $c$, quindi:
+    \begin{align*}
+    c \mu = \mu_{tot}
+    \end{align*}
+    Dove $c\mu$ rappresenta il tasso complessivo di servizio, di conseguenza riferito a $\mu_{tot}$. \\
+    \begin{align*}
+    P_{k} \ = \
+    \begin{cases}
+     &P_{0} \ \frac{(c\rho)^{k}}{k!};\ k \le c\\ \\
+     &P_{0} \ \frac{(c\rho)^{k}}{c! \ c^{k-c}}; \ k > c
+     \end{cases}
+     \ = \ \
+    \begin{cases}
+     &P_{0} \ \frac{(c\rho)^{k}}{k!};\ k \le c\\ \\
+     &P_{0} \ \frac{\rho^{k} \ c^{c}}{c!}; \ k > c
+    \end{cases}
+    \end{align*} \\
+    $P_{0}$ \ = \ $[\sum^{c-1}_{k=0}(\frac{(c\rho)^{k}}{k!} \ + \ \frac{(c\rho)^{c}}{c!} \ \frac{1}{1 \ - \ \rho})]^{-1}$ \ \ \ \ \ ($P_{0} \ + \ \sum^{\infty}_{k=1} \ P_{k}$)\ = \ 1 \\ \\
+    Un pkt/ut va in coda se ce ne sono già $c$ nel sistema che stanno occupando tutti i server. \\ \\
+    P\{queue\}\ = \ $\sum^{\infty}_{k=c} \ P_{k}\ = \ P_{0} \ \frac{(c \ \rho)^{c}}{c! \ (1 - \rho)} \ = \ \frac{\frac{(c \rho)^{c}}{c!} \ \frac{1}{1 \ - \ \rho}}{\sum^{c-1}_{k=0}(\frac{(c \rho)^{k}}{k!} \ + \ \frac{(c \rho)^{c}}{c!} \ \frac{1}{1 \ - \ \rho})}$ \\ 
+     P\{queue\} = Probabilità di entrare in coda.\\ \\
+    Formula di C-Erlang \ $\rightarrow$ \ $C(c \ , \ A) \ = \ \frac{\frac{A^{c}}{c!} \ \frac{1}{1 \ - \ \frac{A}{c}}}{\sum^{c-1}_{k=0}(\frac{A^{k}}{k!}\ + \ \frac{A^{c}}{c!} \ \frac{1}{1 \ - \ \frac{A}{c}})}$ \\
+    P\{queue\} \ = \ $C(c \ , \ c\rho) \ [c\rho \ = \ \frac{1}{\mu}]$ \\ 
+    Dove $c$ $\rightarrow$ Numero di server. \\ 
+    \begin{align*}
+    &A \ = \ c\rho; 
+    &C(c \ , A) \ = \ 0 \ se \ \rho \ = \ 0. \\
+    \end{align*}
+    $L_{q} \ = \ E\{q\} \ = \ \sum^{\infty}_{k=c}(k-c) \ P_{k} \ = \ C(c \ , \ c\rho) \ \frac{\rho}{1-\rho}$ \\ 
+    $L_{q}$ $\rightarrow$ Rappresenta il numero medio di pkt/ut in coda.\\
+    $(k-c)$ $\rightarrow$ Rappresenta il numero di ut. in coda nello stato k.\\ \\
+    $L_{x} \ = \ E\{x\} \ = \ c\rho$ \\
+    $L_{x}$ $\rightarrow$ \ Numero medio di pky/ut. in servizio $(x \ = \ k-q)$. \\ \\
+    $L_{s} \ = \ L_{q} \ + \ L_{x} \ = \ [\frac{C(c \ , \ c\rho)}{1-\rho} \ + \ c]\ \rho \\ $
+    $L_{s}$ $\rightarrow$ Numero medio di pkt/ut. nel sistema. \\ \\ Dalla relazione di Little:\\ \\
+    $W_{q} \ = \ \frac{L_{q}}{E\{\lambda\}} \ = \ \frac{C(c \ , \ c\rho)}{\mu_{tot}(1-\rho)}$ \\ \\
+    $W_{s} \ = \ \frac{L_{s}}{E\{\lambda\}} \ = \ \frac{C(c \ , \ c\rho) \ + \ c(1-\rho)}{\mu_{tot}(1-\rho)}$ \\ 
+\newpage
+\section{Grafico e conclusione}
+Sull'asse delle ordinate inserisco il approssimativamente il valore della moltiplicazione fra $\mu_{tot}$ e $W_{s}$. \\
+Sull'asse delle ascisse inserisco il valore di $\rho$. \\ \\
+\begin{tikzpicture}
+  % Assi cartesiani
+  \draw[->] (-5,0) -- (5,0) node[right] {$\rho$};
+  \draw[->] (0,0) -- (0,10) node[above] {$\mu_{tot} \ W_{s}$};
+
+  % Disegna le tre parabole
+  \draw[domain=0:2,smooth,variable=\x,blue] plot ({\x},{0.7*\x^3+1});
+  \draw[domain=0:2,smooth,variable=\x,red] plot ({\x},{0.7*\x^3+2});
+  \draw[domain=0:2,smooth,variable=\x,green] plot ({\x},{0.7*\x^3+3});
+
+  \draw[domain=0:2.2,dashed,variable=\x,blue] plot ({\x},{0.7*\x^3+1});
+  \draw[domain=0:2.2,dashed,variable=\x,red] plot ({\x},{0.7*\x^3+2});
+  \draw[domain=0:2.2,dashed,variable=\x,green] plot ({\x},{0.7*\x^3+3});
+  
+  \draw[dashed] (2.4,0) -- (2.4,10);
+
+  % Disegna i punti di partenza
+  \fill (0,1) circle (2pt) node[above left] {$(c = 1)$};
+  \fill (0,2) circle (2pt) node[above left] {$(c = 2)$};
+  \fill (0,3) circle (2pt) node[above left] {$(c = 3)$};
+  \fill (2.4, 0) circle (2pt) node[below] {$(1)$};
+
+\end{tikzpicture} \\ \\
+Se incremento ogni volta il valore di $c$ di uno e lo inserisco nella formula di $W_{s}$, posso notare che gli andamenti hanno tutti un asintoto verticale che tende ad infinito per $\rho$ che tende ad uno.  \\ \\
+$\mu_{tot} \ \cdot \ ( W_{s} \ = \ \frac{L_{s}}{E\{\lambda\}} \ = \ \frac{C(c \ , \ c\rho) \ + \ c(1-\rho)}{\mu_{tot}(1-\rho)} )$ \\ \\
+Se confrontiamo i risultati del nostro sistema M/M/c con un sistema M/M/1 dotato di un solo servitore, si può notare che dal punto di vista dell'attesa nel sistema convengono pochi servitori veloci rispetto a numerosi servitori lenti.\\
+\end{document}

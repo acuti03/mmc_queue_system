@@ -1,0 +1,7 @@
+\babel@toc {italian}{}\relax 
+\babel@toc {italian}{}\relax 
+\contentsline {section}{\numberline {1}Obbiettivo}{3}{section.1}%
+\contentsline {section}{\numberline {2}Sviluppo del simulatore M/M/c}{3}{section.2}%
+\contentsline {section}{\numberline {3}Variabili e dati noti}{3}{section.3}%
+\contentsline {section}{\numberline {4}Calcoli e cenni teorici}{4}{section.4}%
+\contentsline {section}{\numberline {5}Grafico e conclusione}{6}{section.5}%
