@@ -15,59 +15,109 @@ $ git clone https://github.com/acuti03/progetto-reti.git
 Installazione di python: https://www.python.org/downloads/
 
 ### MacOs:
-Installazione di Homebrew:
+#### Installazione di Homebrew:
 ```console
 $ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-Installazione di PostgreSQL:
+#### Installazione di PostgreSQL:
 ```console
 $ brew install postgresql
 ```
 
-Far partire il servizio di postgresql:
+#### Far partire il servizio di PostgreSQL:
 ```console
-$ brew install postgresql
+$ brew services start postgresql
 ```
 
-Creazione del database:
+#### Creazione del database:
 1. Per prima cosa digitare:
 ```console
 $ psql postgres 
 ```
-per aprire il pannello di controllo di postgresql.
+per aprire il pannello di controllo di PostgreSQL.
 
 2. Successivamente creare il databse chiamandolo: "gfg".
 ```SQL
 $ CREATE DATABASE gfg;
 ```
-3. Chiudere il pannello di postgresql:
+3. Chiudere il pannello di PostgreSQL:
 ```console
 $ \q
 ```
-Verificare che pip sia installato con:
+#### Verificare che pip sia installato con:
 ```console
 $ pip --version
 ```
 Se da errore consultare: https://phoenixnap.com/kb/install-pip-mac
 
-Installazione di django:
+#### Installazione di django:
 ```console
 $ pip install django
 ```
-Installazione del virtualenv:
+#### Installazione del virtualenv:
 ```console
 $ pip install virtualenv
 ```
-Entrare dentro la cartella del progetto e digitare:
+#### Entrare dentro la cartella del progetto e digitare:
 ```console
 $ virtualenv gfg
 ```
-Installare il modulo "psycopg2":
+#### Installare il modulo "psycopg2":
 ```console
 $ pip install psycopg2
 ```
-Far partire il server:
+#### Far partire il server:
+```console
+$ python3 manage.py runserver
+```
+Visitare il link:
+![](./images/screen2.png "")
+
+### Windows:
+Per installare PostgreSQL e fare il set-up visitare il link: https://www.prisma.io/dataguide/postgresql/setting-up-a-local-postgresql-database#setting-up-postgresql-on-windows.
+Scegliere la porta ``8000``.
+
+#### Creazione del database:
+1. Per prima cosa digitare:
+```console
+$ psql
+```
+per aprire il pannello di controllo di PostgreSQL.
+
+2. Successivamente creare il databse chiamandolo: "gfg".
+```SQL
+$ CREATE DATABASE gfg;
+```
+3. Chiudere il pannello di PostgreSQL:
+```console
+$ \q
+```
+
+#### Verificare che pip sia installato con:
+```console
+$ pip --version
+```
+
+In caso di errore consultare: https://www.geeksforgeeks.org/how-to-install-pip-on-windows/
+
+#### Installazione di django:
+```console
+$ pip install django
+```
+#### Installazione del virtualenv:
+```console
+$ pip install virtualenv
+```
+#### Entrare dentro la cartella del progetto e digitare:
+```console
+$ virtualenv gfg
+```
+#### Installare il modulo "psycopg2":
+```console
+$ pip install psycopg2
+```
+#### Far partire il server:
 ```console
 $ python3 manage.py runserver
 ```
