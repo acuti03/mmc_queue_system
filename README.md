@@ -126,4 +126,4 @@ Visitare il link:
 ![](./images/screen2.png "")
 
 ## Utilizzo
-![](https://https://github.com/acuti03/progetto-reti/images/rec1.gif)
+![](https://github.com/acuti03/progetto-reti/blob/main/images/rec1.gif)
