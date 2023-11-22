@@ -94,7 +94,7 @@ class Main {
 
 	printResult(){
 
-		if(this.canCalculate() == false){
+		if(this.canCalculate() == false || this.i >= this.k){
 			alert("Valori non validi")
 			return false;
 		}
@@ -120,7 +120,7 @@ class Main {
 
 		this.myInterval = setInterval(() => {
 
-			if(this.i == this.k){
+			if(this.i >= this.k){
 				clearInterval(this.myInterval);
 				document.getElementById('print').disabled = false;
 			}
