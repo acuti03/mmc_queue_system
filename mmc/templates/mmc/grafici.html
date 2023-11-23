@@ -20,7 +20,7 @@
 	<script src="{% static 'grafici.js' %}" defer data-k="{{ k }}" data-mu_k="{{ mu_k }}"
 		data-c="{{ c }}" data-myLambda="{{ myLambda }}" data-mu="{{ mu }}" data-v="{{ v }}"
 		data-rho="{{ rho }}" data-p_0="{{ p_0 }}" data-p_k="{{ p_k }}" data-p_queue="{{ p_queue }}"
-		data-l_q="{{ l_q }}" data-l_s="{{ l_s }}" data-w_q="{{ w_q }}" data-w_s="{{ w_s }}"></script>
+		data-l_q="{{ l_q }}" data-l_s="{{ l_s }}" data-w_q="{{ w_q }}" data-w_s="{{ w_s }}" data-w_s_graph="{{ w_s_graph }}"></script>
 
 	<!-- Add font-awasome -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
@@ -66,7 +66,7 @@
 					<td>{{ i.mu }}</td>
 					<td>{{ i.c }}</td>
 					<td>
-						<button class="btn btn-primary" onclick="plot(`{{ i.k }}`, `{{ i.p_k }}`)">
+						<button class="btn btn-primary" onclick="plot1(`{{ i.k }}`, `{{ i.p_k }}`, `{{ i.w_s_graph }}`)">
 							<i class="fa-solid fa-chart-simple"></i>
 						</button>
 					</td>
@@ -88,7 +88,8 @@
 		</table>
 	</div>
 	<div class="container">
-		<canvas id="queueChart"></canvas>
+		<canvas id="queueChart1"></canvas>
+		<canvas id="queueChart2"></canvas>
 	</div>
 </body>
 </html>

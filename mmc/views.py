@@ -20,12 +20,12 @@ def home(request):
 	tmp = selectFloat('myLambda')
 
 	if tmp != []:
-		myLambda = selectFloat('myLambda')
+		myLambda = tmp
 		myLambda = myLambda[len(myLambda) - 1]
 		mu = selectFloat('mu')
 		mu = mu[len(mu) - 1]
 		c = selectInt('c')
-		c = c[len(c) - 1]
+		c = c[len(c) - 2]
 
 		x = lambda k, c, mu : "{:.3f}".format(k * mu) if (k * mu) < (c * mu) else "{:.3f}".format(c * mu)
 
@@ -56,6 +56,11 @@ def home(request):
 		w_q = w_q[len(w_q) - 1]
 		w_s = selectFloat('w_s')
 		w_s = w_s[len(w_s) - 1]
+		w_s_graph = [i for i in range(0, 99)]
+
+		for i in w_s_graph:
+			w_s_graph[i] = float("{:.3f}".format(((cErlang(c, i / 100, p_0) + (c * (1 - i / 100))) / ((c * mu) * (1 - i / 100))) * (mu * c)))
+
 	else:
 		myLambda = 0
 		mu = 0
@@ -71,6 +76,7 @@ def home(request):
 		l_s = 0
 		w_q = 0
 		w_s = 0
+		w_s_graph = [0]
 		
 	v = 1000
 
@@ -113,8 +119,12 @@ def home(request):
 			l_s = float("{:.3f}".format(l_q + l_x))
 			w_q = float("{:.3f}".format(cErlang(c, rho, p_0) / ((c * mu) * (1 - rho))))
 			w_s = float("{:.3f}".format((cErlang(c, rho, p_0) + (c * (1 - rho))) / ((c * mu) * (1 - rho))))
+			w_s_graph = [i for i in range(0, 99)]
 
-			newMmc = Mmc(myLambda = myLambda, mu = mu, c = c, rho = rho, k = k, mu_k = mu_k, p_0 = p_0, p_k = p_k, p_queue = p_queue, l_q = l_q, l_s = l_s, l_x = l_x, w_q = w_q, w_s = w_s)
+			for i in w_s_graph:
+				w_s_graph[i] = float("{:.3f}".format(((cErlang(c, i / 100, p_0) + (c * (1 - i / 100))) / ((c * mu) * (1 - i / 100))) * (mu * c)))
+
+			newMmc = Mmc(myLambda = myLambda, mu = mu, c = c, rho = rho, k = k, mu_k = mu_k, p_0 = p_0, p_k = p_k, p_queue = p_queue, l_q = l_q, l_s = l_s, l_x = l_x, w_q = w_q, w_s = w_s, w_s_graph = w_s_graph)
 			newMmc.save()
 
 
@@ -133,17 +143,13 @@ def home(request):
 		"l_x": l_x,
 		"l_s": l_s,
 		"w_q": w_q,
-		"w_s": w_s
+		"w_s": w_s,
+		"w_s_graph": w_s_graph 
 	}
 
 	return render(request, 'mmc/index.html', context)
 
 def grafici(request):
-	myLambda = [float(i) for i in re.findall("\d+\.\d+", str([i for i in Mmc.objects.values("myLambda")]))]
-	mu = [float(i) for i in re.findall("\d+\.\d+", str([i for i in Mmc.objects.values("mu")]))]
-	c = [int(i) for i in [float(i) for i in re.findall("\d+\.\d+", str([i for i in Mmc.objects.values("c")]))]]
-	myId = [int(i) for i in re.findall("\d+", str([i for i in Mmc.objects.values("id")]))]
-
 	data = Mmc.objects.all().values()
 
 	context = {
