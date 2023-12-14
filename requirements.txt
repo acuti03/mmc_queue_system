@@ -18,7 +18,7 @@ psycopg2-binary==2.9.9
 pyparsing==3.1.1
 python-dateutil==2.8.2
 pytz==2023.3.post1
-setuptools==58.1.0
+setuptools==68.2.2
 simpy==4.0.2
 six==1.16.0
 sqlparse==0.4.4
