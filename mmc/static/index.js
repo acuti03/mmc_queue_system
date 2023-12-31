@@ -2,6 +2,7 @@ class Main {
 	v
 	c
 	mu
+	myLambda
 	k
 	kField
 	mu_k
@@ -26,12 +27,13 @@ class Main {
 	i
 	callSpeedUp
 
-	constructor(v, c, mu, k, mu_k, rho, p_0, p_k, p_queue, l_q, l_s, w_q, w_s){
-		this.i = 0
+	constructor(v, c, mu, myLambda, k, mu_k, rho, p_0, p_k, p_queue, l_q, l_s, w_q, w_s){
+		this.i = 0;
 		this.v = v;
 		this.firstV = v;
 		this.c = c;
 		this.mu = mu;
+		this.myLambda = myLambda;
 		this.k = k;
 		this.mu_k = mu_k;
 		this.rho = rho;
@@ -59,7 +61,7 @@ class Main {
 	}
 
 	canCalculate(){
-		if(this.c == 0 || this.mu == 0 || this.rho == 1){
+		if(this.c == 0 || this.mu == 0 || this.rho == 1 || this.c * this.mu < this.myLambda){
 			return false;
 		}
 	}
@@ -188,4 +190,4 @@ console.log("p_0: ", p_0);
 console.log("p_k: ", p_k)
 console.log("p_queue: ", p_queue);
 
-let main = new Main(v, c, mu, k, mu_k, rho, p_0, p_k, p_queue, l_q, l_s, w_q, w_s); 
+let main = new Main(v, c, mu, myLambda, k, mu_k, rho, p_0, p_k, p_queue, l_q, l_s, w_q, w_s); 

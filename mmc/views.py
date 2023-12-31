@@ -3,9 +3,59 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect
 from .models import Mmc
 from mmc.models import Mmc
-import math, json, re
+import math, json, re, random, simpy
 
 # Create your views here.
+
+class MMcQueue:
+	def __init__(self, env, arrival_rate, service_rate, num_servers):
+		self.env = env
+		self.arrival_rate = arrival_rate
+		self.service_rate = service_rate
+		self.num_servers = num_servers
+		self.queue = simpy.Store(env)
+		self.servers = simpy.Resource(env, capacity=num_servers)
+		self.waiting_times = []
+
+	def arrival_process(self):
+		customer_id = 1
+
+		for i in self.service_rate:
+			inter_arrival_time = random.expovariate(self.arrival_rate)
+			yield self.env.timeout(inter_arrival_time)
+			self.env.process(self.customer(customer_id, i))
+			customer_id += 1
+
+	def customer(self, customer_id, service):
+		arrival_time = self.env.now
+		print(f"Customer {customer_id} arrives at time {arrival_time}")
+		
+		with self.servers.request() as request:
+			yield request
+			service = float(service)
+
+			if service == 0.0:
+				service = 0.1
+
+			service_time = random.expovariate(service)
+			yield self.env.timeout(service_time)
+			
+			departure_time = self.env.now
+			wait_time = departure_time - arrival_time
+			self.waiting_times.append(wait_time)
+			print(f"Customer {customer_id} departs at time {departure_time} (Wait time: {wait_time})")
+
+
+def run_simulation(arrival_rate, service_rate, num_servers, simulation_time):
+	env = simpy.Environment()
+	queue = MMcQueue(env, arrival_rate, service_rate, num_servers)
+	env.process(queue.arrival_process())
+	env.run(until=simulation_time)
+
+	average_waiting_time = sum(queue.waiting_times) / len(queue.waiting_times)
+	print(f"Average Waiting Time: {average_waiting_time:.2f}")
+
+
 def cErlang(c, rho, p_0):
 	return (p_0) * (((c * rho) ** c) / math.factorial(c)) * (1 / (1 - rho))
 
@@ -61,6 +111,8 @@ def home(request):
 		for i in w_s_graph:
 			w_s_graph[i] = float("{:.3f}".format(((cErlang(c, i / 100, p_0) + (c * (1 - i / 100))) / ((c * mu) * (1 - i / 100))) * (mu * c)))
 
+		run_simulation(myLambda, mu_k, c, 10.0)
+
 	else:
 		myLambda = 0
 		mu = 0
@@ -90,7 +142,7 @@ def home(request):
 
 		rho = float("{:.3f}".format(myLambda/(c * mu)))
 
-		if c != 0 and mu != 0 and rho != 1:
+		if (c != 0) and (mu != 0) and (rho != 1) and (mu * c > myLambda):
 			x = lambda a : a if a > 0 else -a
 
 			myLambda = x(myLambda)
@@ -126,6 +178,7 @@ def home(request):
 
 			newMmc = Mmc(myLambda = myLambda, mu = mu, c = c, rho = rho, k = k, mu_k = mu_k, p_0 = p_0, p_k = p_k, p_queue = p_queue, l_q = l_q, l_s = l_s, l_x = l_x, w_q = w_q, w_s = w_s, w_s_graph = w_s_graph)
 			newMmc.save()
+			run_simulation(myLambda, mu_k, c, 10.0)
 
 
 	context = {
@@ -144,7 +197,7 @@ def home(request):
 		"l_s": l_s,
 		"w_q": w_q,
 		"w_s": w_s,
-		"w_s_graph": w_s_graph 
+		"w_s_graph": w_s_graph
 	}
 
 	return render(request, 'mmc/index.html', context)
