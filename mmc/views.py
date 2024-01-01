@@ -8,7 +8,7 @@ import math, json, re, random, simpy
 # Create your views here.
 
 class MMcQueue:
-	def __init__(self, env, arrival_rate, service_rate, num_servers):
+	def __init__(self, env, arrival_rate, service_rate, num_servers, packagesInQueue, queueEventTimes):
 		self.env = env
 		self.arrival_rate = arrival_rate
 		self.service_rate = service_rate
@@ -16,6 +16,9 @@ class MMcQueue:
 		self.queue = simpy.Store(env)
 		self.servers = simpy.Resource(env, capacity=num_servers)
 		self.waiting_times = []
+		self.queue_lenght = 0
+		self.packagesInQueue = packagesInQueue
+		self.queueEventTimes = queueEventTimes
 
 	def arrival_process(self):
 		customer_id = 1
@@ -23,12 +26,15 @@ class MMcQueue:
 		for i in self.service_rate:
 			inter_arrival_time = random.expovariate(self.arrival_rate)
 			yield self.env.timeout(inter_arrival_time)
-			self.env.process(self.customer(customer_id, i))
+			self.queue_lenght += 1
+			print(f"Customer {customer_id} arrives at time {self.env.now}, packages in the queue: {self.queue_lenght}")
+			self.env.process(self.service_process(customer_id, i))
 			customer_id += 1
+			self.packagesInQueue.append(self.queue_lenght)
+			self.queueEventTimes.append(inter_arrival_time)
 
-	def customer(self, customer_id, service):
+	def service_process(self, customer_id, service):
 		arrival_time = self.env.now
-		print(f"Customer {customer_id} arrives at time {arrival_time}")
 		
 		with self.servers.request() as request:
 			yield request
@@ -43,12 +49,15 @@ class MMcQueue:
 			departure_time = self.env.now
 			wait_time = departure_time - arrival_time
 			self.waiting_times.append(wait_time)
-			print(f"Customer {customer_id} departs at time {departure_time} (Wait time: {wait_time})")
+			self.queue_lenght -= 1
+			print(f"Customer {customer_id} departs at time {departure_time} (Wait time: {wait_time}), packages in the queue: {self.queue_lenght}")
+			self.packagesInQueue.append(self.queue_lenght)
+			self.queueEventTimes.append(service_time)
 
 
-def run_simulation(arrival_rate, service_rate, num_servers, simulation_time):
+def run_simulation(arrival_rate, service_rate, num_servers, simulation_time, packagesInQueue, queueEventTimes):
 	env = simpy.Environment()
-	queue = MMcQueue(env, arrival_rate, service_rate, num_servers)
+	queue = MMcQueue(env, arrival_rate, service_rate, num_servers, packagesInQueue, queueEventTimes)
 	env.process(queue.arrival_process())
 	env.run(until=simulation_time)
 
@@ -111,7 +120,19 @@ def home(request):
 		for i in w_s_graph:
 			w_s_graph[i] = float("{:.3f}".format(((cErlang(c, i / 100, p_0) + (c * (1 - i / 100))) / ((c * mu) * (1 - i / 100))) * (mu * c)))
 
-		run_simulation(myLambda, mu_k, c, 10.0)
+
+		packagesInQueue = []
+		queueEventTimes = [1]
+	
+
+		while len(queueEventTimes) % 2 != 0:
+			packagesInQueue = []
+			queueEventTimes = []
+			run_simulation(myLambda, mu_k, c, 10.0, packagesInQueue, queueEventTimes)
+
+
+		print(f"***AOOO PROVA: {packagesInQueue}, poi: {queueEventTimes},\n lens: {len(packagesInQueue)}, {len(queueEventTimes)}***")
+
 
 	else:
 		myLambda = 0
@@ -129,6 +150,8 @@ def home(request):
 		w_q = 0
 		w_s = 0
 		w_s_graph = [0]
+		packagesInQueue = []
+		queueEventTimes = []
 		
 	v = 1000
 
@@ -176,9 +199,20 @@ def home(request):
 			for i in w_s_graph:
 				w_s_graph[i] = float("{:.3f}".format(((cErlang(c, i / 100, p_0) + (c * (1 - i / 100))) / ((c * mu) * (1 - i / 100))) * (mu * c)))
 
-			newMmc = Mmc(myLambda = myLambda, mu = mu, c = c, rho = rho, k = k, mu_k = mu_k, p_0 = p_0, p_k = p_k, p_queue = p_queue, l_q = l_q, l_s = l_s, l_x = l_x, w_q = w_q, w_s = w_s, w_s_graph = w_s_graph)
+
+			queueEventTimes = [1]
+
+			while len(queueEventTimes) % 2 != 0:
+				packagesInQueue = []
+				queueEventTimes = []
+				run_simulation(myLambda, mu_k, c, 10.0, packagesInQueue, queueEventTimes)
+
+			newMmc = Mmc(myLambda = myLambda, mu = mu, c = c, rho = rho, k = k, mu_k = mu_k, p_0 = p_0, p_k = p_k, p_queue = p_queue, l_q = l_q, l_s = l_s,
+				l_x = l_x, w_q = w_q, w_s = w_s, w_s_graph = w_s_graph, packagesInQueue= packagesInQueue, queueEventTimes = queueEventTimes)
 			newMmc.save()
-			run_simulation(myLambda, mu_k, c, 10.0)
+
+
+			print(f"***AOOO PROVA: {packagesInQueue}, poi: {queueEventTimes},\n lens: {len(packagesInQueue)}, {len(queueEventTimes)}***")
 
 
 	context = {
@@ -197,7 +231,9 @@ def home(request):
 		"l_s": l_s,
 		"w_q": w_q,
 		"w_s": w_s,
-		"w_s_graph": w_s_graph
+		"w_s_graph": w_s_graph,
+		"packagesInQueue": packagesInQueue,
+		"queueEventTimes": queueEventTimes
 	}
 
 	return render(request, 'mmc/index.html', context)
