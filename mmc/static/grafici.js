@@ -1,9 +1,11 @@
 let myChart1 = null;
 let myChart2 = null;
+let myChart3 = null;
 
-const plot1 = (kLen, p_k, w_s) => {
+const plot1 = (kLen, p_k, w_s, packagesInQueue, queueEventTimes) => {
 
 	plot2(w_s);
+	plot3(packagesInQueue, queueEventTimes)
 
 	kLen = +kLen + 1
 	const k = Array(kLen);
@@ -78,7 +80,7 @@ const plot1 = (kLen, p_k, w_s) => {
 	myChart1 = new Chart(ctx, config);
 }
 
-const plot2 = (w_s, muTot) => {
+const plot2 = (w_s) => {
 
 	let regex = /\d+\.\d+/g;
 	w_s = w_s.match(regex);
@@ -146,7 +148,63 @@ const plot2 = (w_s, muTot) => {
 	myChart2 = new Chart(ctx, config);
 }
 
+const plot3 = (packagesInQueue, queueEventTimes) => {
+
+	let regex1 = /\d/g;
+	let regex2 = /\d+\.\d+/g;
+	packagesInQueue = packagesInQueue.match(regex1);
+	queueEventTimes = queueEventTimes.match(regex2);
+
+	console.log(queueEventTimes)
+
+	const coordinates = Array(packagesInQueue.length);
+
+	for(let i = 0; i < coordinates.length; i++){
+		coordinates[i] = {
+			x: queueEventTimes[i],
+			y: packagesInQueue[i]
+		}
+	}
+
+	const data = {
+		labels: queueEventTimes,
+		datasets: [{
+			label: 'x = time(seconds), y = packages in the queue',
+			data: packagesInQueue,
+			borderColor: '#537bc4',
+			fill: false,
+			stepped: true,
+		}],
+	};
+
+	
+	const config = {
+		type: 'line',
+		data: data,
+		options: {
+			responsive: true,
+		 	interaction: {
+				intersect: false,
+				axis: 'x'
+			},
+			plugins: {
+				title: {
+					display: true
+				}
+			}
+		}
+	};
+
+	const ctx = document.getElementById('queueChart3').getContext('2d');
+
+	if(myChart3 != null){
+		myChart3.destroy();
+	}
+	myChart3 = new Chart(ctx, config);
+}
+
 const closePlot = () => {
 	myChart1.destroy();
 	myChart2.destroy();
+	myChart3.destroy();
 }

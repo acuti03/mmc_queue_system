@@ -31,7 +31,7 @@ class MMcQueue:
 			self.env.process(self.service_process(customer_id, i))
 			customer_id += 1
 			self.packagesInQueue.append(self.queue_lenght)
-			self.queueEventTimes.append(inter_arrival_time)
+			self.queueEventTimes.append(self.env.now)
 
 	def service_process(self, customer_id, service):
 		arrival_time = self.env.now
@@ -40,8 +40,7 @@ class MMcQueue:
 			yield request
 			service = float(service)
 
-			if service == 0.0:
-				service = 0.1
+			service = service if service != 0.0 else 0.1
 
 			service_time = random.expovariate(service)
 			yield self.env.timeout(service_time)
@@ -52,7 +51,7 @@ class MMcQueue:
 			self.queue_lenght -= 1
 			print(f"Customer {customer_id} departs at time {departure_time} (Wait time: {wait_time}), packages in the queue: {self.queue_lenght}")
 			self.packagesInQueue.append(self.queue_lenght)
-			self.queueEventTimes.append(service_time)
+			self.queueEventTimes.append(departure_time)
 
 
 def run_simulation(arrival_rate, service_rate, num_servers, simulation_time, packagesInQueue, queueEventTimes):
