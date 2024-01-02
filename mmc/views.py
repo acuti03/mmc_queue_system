@@ -27,7 +27,7 @@ class MMcQueue:
 			inter_arrival_time = random.expovariate(self.arrival_rate)
 			yield self.env.timeout(inter_arrival_time)
 			self.queue_lenght += 1
-			print(f"Customer {customer_id} arrives at time {self.env.now}, packages in the queue: {self.queue_lenght}")
+			# print(f"Customer {customer_id} arrives at time {self.env.now}, packages in the queue: {self.queue_lenght}")
 			self.env.process(self.service_process(customer_id, i))
 			customer_id += 1
 			self.packagesInQueue.append(self.queue_lenght)
@@ -49,7 +49,7 @@ class MMcQueue:
 			wait_time = departure_time - arrival_time
 			self.waiting_times.append(wait_time)
 			self.queue_lenght -= 1
-			print(f"Customer {customer_id} departs at time {departure_time} (Wait time: {wait_time}), packages in the queue: {self.queue_lenght}")
+			# print(f"Customer {customer_id} departs at time {departure_time} (Wait time: {wait_time}), packages in the queue: {self.queue_lenght}")
 			self.packagesInQueue.append(self.queue_lenght)
 			self.queueEventTimes.append(departure_time)
 
@@ -61,7 +61,7 @@ def run_simulation(arrival_rate, service_rate, num_servers, simulation_time, pac
 	env.run(until=simulation_time)
 
 	average_waiting_time = sum(queue.waiting_times) / len(queue.waiting_times)
-	print(f"Average Waiting Time: {average_waiting_time:.2f}")
+	# print(f"Average Waiting Time: {average_waiting_time:.2f}")
 
 
 def cErlang(c, rho, p_0):
@@ -128,10 +128,6 @@ def home(request):
 			packagesInQueue = []
 			queueEventTimes = []
 			run_simulation(myLambda, mu_k, c, 10.0, packagesInQueue, queueEventTimes)
-
-
-		print(f"***AOOO PROVA: {packagesInQueue}, poi: {queueEventTimes},\n lens: {len(packagesInQueue)}, {len(queueEventTimes)}***")
-
 
 	else:
 		myLambda = 0
