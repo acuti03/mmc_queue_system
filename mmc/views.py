@@ -207,9 +207,6 @@ def home(request):
 			newMmc.save()
 
 
-			print(f"***AOOO PROVA: {packagesInQueue}, poi: {queueEventTimes},\n lens: {len(packagesInQueue)}, {len(queueEventTimes)}***")
-
-
 	context = {
 		"v": v,
 		"myLambda": myLambda,
